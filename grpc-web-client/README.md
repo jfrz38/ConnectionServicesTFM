@@ -25,4 +25,4 @@ Pasos a seguir:
 
 3. Levantar la web
 
-    > python3 -m http.server 8081 &
+    > python3 -m http.server 8080 &
