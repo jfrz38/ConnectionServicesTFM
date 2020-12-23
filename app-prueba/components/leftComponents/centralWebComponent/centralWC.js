@@ -7,7 +7,6 @@ class webComponent extends HTMLElement {
     }
 
     async connectedCallback() {
-        console.log('my component is connected!');
         await this.loadHTML()
     }
 

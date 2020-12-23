@@ -19,9 +19,9 @@ class webComponent extends HTMLElement {
         this.attachShadow({ mode: 'open' }).innerHTML = await res.text()
         sendButton = this.shadowRoot.getElementById('sendButton')
         if (this.position === 'left') {
-            sendButton.textContent = "--->"
+            sendButton.textContent = "-"
         } else if (this.position === 'right') {
-            sendButton.textContent = "<---"
+            sendButton.textContent = "+"
         } else {
             sendButton.textContent = "Send"
         }

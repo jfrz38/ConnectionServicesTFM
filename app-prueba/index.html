@@ -2,45 +2,125 @@
 <html>
   <head>
     <link href="css/style.css" rel="stylesheet" />
+    <!-- Central WebComponent -->
     <script
       type="module"
       src="./components/leftComponents/centralWebComponent/centralWC.js"
     ></script>
+    <!-- Side WebComponent -->
     <script
       type="module"
       src="./components/leftComponents/sideWebComponent/sideWC.js"
     ></script>
+    <!-- Search WebComponent-->
+    <script
+      type="module"
+      src="./components/rightComponents/callGRPC/callGRPC.js"
+    ></script>
+    <!-- List WebComponent -->
+    <script
+      type="module"
+      src="./components/rightComponents/listGRPC/listGRPC.js"
+    ></script>
   </head>
   <div id="div-left" class="split left">
     <div class="centered">
-    <p>AQUÍ HAY TRES WEB COMPONENTS</p>
-    <div style="display: flex;">
-      <side-web-component style="flex: 1;" position="left"></side-web-component>
-      <central-web-component style="flex: 1;"></central-web-component>
-      <side-web-component style="flex: 1;" position="right"></side-web-component>
-    </div>
-    <p>Los extremos (input y button) son un web component añadido dos veces.
-    <p>Es decir, se crea el código una única vez y se añade dos veces en el HTML con un parámetro para indicar si será el botón de la izquierda o la derecha.
-    <p>Mientras que el label central es otro web component.</p>
-    <p>La comunicación entre Web Components se realiza mediante eventos.</p>
-    <p>Al pulsar el botón de enviar, el Web Component correspondiente lanza un evento que será leído por el padre. Una vez el padre lo reciba lo enviará al hijo correspondiente.</p>
-</div>
-  </div>
+      <p>AQUÍ HAY TRES WEB COMPONENTS</p>
+      <hr />
+      <div style="display: flex">
+        <side-web-component
+          style="flex: 1"
+          position="left"
+        ></side-web-component>
+        <central-web-component style="flex: 1"></central-web-component>
+        <side-web-component
+          style="flex: 1"
+          position="right"
+        ></side-web-component>
+      </div>
+      <hr />
+      <p>
+        Los extremos (input y button) son un web component añadido dos veces.
+      </p>
+      <p>
+        Es decir, se crea el código una única vez y se añade dos veces en el
+        HTML con un parámetro para indicar si será el botón de la izquierda o la
+        derecha.
+      </p>
+      <p>Mientras que el label central es otro web component.</p>
+      <p>La comunicación entre Web Components se realiza mediante eventos.</p>
+      <p>
+        Al pulsar el botón de enviar, el Web Component correspondiente lanza un
+        evento que será leído por el padre. Una vez el padre lo reciba lo
+        enviará al hijo correspondiente.
+      </p>
+      <hr />
+      <div style="text-align: left">
+        <p>
+          Se ha buscado la información a partir de esta
+          <a
+            href="https://stackoverflow.com/questions/55001211/how-to-communicate-between-web-components-native-ui"
+            >respuesta en StackOverFlow</a
+          >
+          donde -resumidamente- dice que:
+        </p>
+        <div>
+          <ul>
+            <li>
+              "Si permites que los componentes hablen entre ellos directamente
+              <b>NO</b> tienes componentes, tienes un sistema compacto"
+            </li>
+            <li>
+              "Añade código para recibir <b>eventos</b> en el padre y
+              <b>llamar a las funciones</b> en los componentes hijos"
+            </li>
+            <li>
+              "Debes evitar que componentes hermanos hablen directamente entre
+              ellos"
+            </li>
+            <li>
+              "Es cierto que se podría envolver la funcionalidad en un nuevo
+              componente padre pero podría producir <b>código spaghetti</b>"
+            </li>
+          </ul>
+        </div>
+      </div>
 
+      <hr />
+    </div>
+  </div>
   <div class="split right">
     <div class="centered">
-        <button onclick="prueba()">prueba</button>
+      <p>AQUÍ SE HACE USO DE GRPC</p>
+      <hr />
+      <call-grpc></call-grpc>
+      <list-grpc></list-grpc>
     </div>
+    <button onclick="prueba()">PRUEBA</button>
   </div>
 
   <script>
     document.addEventListener("side-operation", this);
+    document.addEventListener("gRPC-call", this);
     function handleEvent(event) {
-        if(event.type === "side-operation") this.callChildOperation(event.detail)
+      if (event.type === "side-operation") {
+        this.callChildOperation(event.detail);
+      } else if (event.type === "gRPC-call") {
+        this.updateChildList(event.detail);
+      }
     }
 
-    function callChildOperation(details){
-        document.querySelector("central-web-component").update(details)
+    function callChildOperation(details) {
+      document.querySelector("central-web-component").update(details);
+    }
+
+    function updateChildList(list) {
+      document.querySelector("list-grpc").updateList(list);
+    }
+    function prueba(){
+        console.log("prueba")
+        var list = [1,2,3,4]
+      document.querySelector("list-grpc").updateList(list);
     }
   </script>
 </html>
