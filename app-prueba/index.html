@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="css/style.css" rel="stylesheet" />
+    <script
+      type="module"
+      src="./components/leftComponents/centralWebComponent/centralWC.js"
+    ></script>
+    <script
+      type="module"
+      src="./components/leftComponents/sideWebComponent/sideWC.js"
+    ></script>
+  </head>
+  <div id="div-left" class="split left">
+    <div class="centered">
+    <p>AQUÍ HAY TRES WEB COMPONENTS</p>
+    <div style="display: flex;">
+      <side-web-component style="flex: 1;" position="left"></side-web-component>
+      <central-web-component style="flex: 1;"></central-web-component>
+      <side-web-component style="flex: 1;" position="right"></side-web-component>
+    </div>
+    <p>Los extremos (input y button) son un web component añadido dos veces.
+    <p>Es decir, se crea el código una única vez y se añade dos veces en el HTML con un parámetro para indicar si será el botón de la izquierda o la derecha.
+    <p>Mientras que el label central es otro web component.</p>
+    <p>La comunicación entre Web Components se realiza mediante eventos.</p>
+    <p>Al pulsar el botón de enviar, el Web Component correspondiente lanza un evento que será leído por el padre. Una vez el padre lo reciba lo enviará al hijo correspondiente.</p>
+</div>
+  </div>
+
+  <div class="split right">
+    <div class="centered">
+        <button onclick="prueba()">prueba</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("side-operation", this);
+    function handleEvent(event) {
+        if(event.type === "side-operation") this.callChildOperation(event.detail)
+    }
+
+    function callChildOperation(details){
+        document.querySelector("central-web-component").update(details)
+    }
+  </script>
+</html>
