@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package list;
+
+service List {
+  rpc GetElements(Request) returns (Response);
+}
+
+message Request {
+  string token = 1;
+}
+
+message Response {
+  repeated string name = 1;
+}

@@ -1,9 +1,17 @@
+
+const {ListRequest, ListReply} = require('../../../grpc/proto/helloworld_pb');
+const {GetElementsClient} = require('../../../grpc/proto/helloworld_grpc_web_pb.js');
+
+var client = new GetElementsClient('http://localhost:8081');
+
 var searchButton;
+var request;
 
 class webComponent extends HTMLElement {
 
     constructor() {
         super()
+        request = new HelloRequest();
     }
 
     async connectedCallback() {
@@ -25,9 +33,21 @@ class webComponent extends HTMLElement {
 
     callGRPC(){
         //Llamar a GRPC para obtener los datos
-
-        //Enviar datos al padre para que los muestre al hijo
-        console.log("PRUEBAA")
+        
+        client.getElements(request, {}, (err, response) => {
+            var list = response.getMessage();
+            console.log("response = "+list);
+            //Enviar datos al padre para que los muestre al hijo
+            searchButton.dispatchEvent(new CustomEvent("gRPC-call", { 
+                bubbles: true, 
+                composed: true,
+                detail: { 
+                    list: list
+                } 
+            }));
+        });
+        
+        
     }
 }
 

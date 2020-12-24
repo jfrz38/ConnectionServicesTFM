@@ -16,11 +16,11 @@ class webComponent extends HTMLElement {
             .innerHTML = await res.text()
     }
 
-    updateList(list){
-        var html = "<p> NEW LIST </p> <ul>";
-        for(var value in list){
-            html += "<li>"+value+"</li>"
-        }
+    updateList(title, list){
+        var html = "<p> "+title+" LIST </p> <ul>";
+        list.forEach(element => {
+           html += "<li>"+element+"</li>"
+        });
         html += "</ul>"
         this.shadowRoot.innerHTML = html;
     }
