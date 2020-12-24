@@ -3,13 +3,16 @@ syntax = "proto3";
 package list;
 
 service List {
-  rpc GetElements(Request) returns (Response);
+  rpc GetElements(Request) returns (Response){
+
+  }
 }
 
 message Request {
-  string token = 1;
+  int32 id = 1;
 }
 
 message Response {
-  repeated string name = 1;
+  string list = 1;
 }
+

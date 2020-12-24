@@ -26,7 +26,7 @@ class webComponent extends HTMLElement {
     async callAPI(){
         //Llamar a la API
         try{
-            var response = await fetch("http://localhost:4000/")
+            var response = await fetch('http://' + window.location.hostname + ':4000');
             var list = await response.json();
             //Enviar datos al padre para que los muestre al hijo
             searchButton.dispatchEvent(new CustomEvent("api-call", { 
@@ -37,6 +37,7 @@ class webComponent extends HTMLElement {
                 } 
             }));
         }catch{
+            console.log("error getting api data")
             //error
         }
         

@@ -6,13 +6,14 @@ var _ = require('lodash');
 var grpc = require('@grpc/grpc-js');
 var protoLoader = require('@grpc/proto-loader');
 var packageDefinition = protoLoader.loadSync(
-    PROTO_PATH,
-    {keepCase: true,
-     longs: String,
-     enums: String,
-     defaults: true,
-     oneofs: true
-    });
+  PROTO_PATH,
+  {
+    keepCase: true,
+    longs: String,
+    enums: String,
+    defaults: true,
+    oneofs: true
+  });
 var protoDescriptor = grpc.loadPackageDefinition(packageDefinition);
 var list = protoDescriptor.list;
 
@@ -21,12 +22,19 @@ var list = protoDescriptor.list;
  * @param {function():?} callback
  */
 function doGetElements(call, callback) {
-  callback(null, [
-    "gRPC element 1",
-    "gRPC element 2",
-    "gRPC element 3",
-    "gRPC element 4",
-  ]);
+  console.log("Entra doGetElements")
+  console.log("call = ", call.request.id)
+  /*callback(null, {
+    list: [
+      "gRPC element 1",
+      "gRPC element 2",
+      "gRPC element 3",
+      "gRPC element 4",
+    ]
+  });*/
+  callback(null, {
+    list: "hello "+call.request.id
+  });
 }
 
 /**
@@ -46,7 +54,7 @@ if (require.main === module) {
     '0.0.0.0:9090', grpc.ServerCredentials.createInsecure(), (err, port) => {
       assert.ifError(err);
       server.start();
-  });
+    });
 }
 
 exports.getServer = getServer;

@@ -1,32 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="css/style.css" rel="stylesheet" />
-    <!-- Central WebComponent -->
-    <script
-      type="module"
-      src="./components/leftComponents/centralWebComponent/centralWC.js"
-    ></script>
-    <!-- Side WebComponent -->
-    <script
-      type="module"
-      src="./components/leftComponents/sideWebComponent/sideWC.js"
-    ></script>
-    <!-- Search gRPC WebComponent-->
-    <script
-      type="module"
-      src="./components/rightComponents/callGRPC/callGRPC.js"
-    ></script>
-    <!-- Search API WebComponent -->
-    <script
-      type="module"
-      src="./components/rightComponents/callAPI/callAPI.js"
-    ></script>
-    <!-- List WebComponent -->
-    <script
-      type="module"
-      src="./components/rightComponents/listGRPC/listGRPC.js"
-    ></script>
+    <script src="dist/main.js"></script>
   </head>
   <div id="div-left" class="split left">
     <div class="centered">
@@ -132,7 +109,7 @@
         <a href="https://developers.google.com/protocol-buffers/docs/overview"
           >documentación de Google</a
         >
-        y los <a href="https://github.com/grpc/grpc-web">ejemplos de GitHub.</a>
+        y ejemplos de GitHub del repositorio de gRPC <a href="https://github.com/grpc/grpc-web">(1)</a> <a href="https://github.com/grpc/grpc-web/tree/master/net/grpc/gateway/examples/helloworld">(2)</a>
       </p>
       <p>
         La API devuelve una lista en formato JSON: Existe un servicio que
