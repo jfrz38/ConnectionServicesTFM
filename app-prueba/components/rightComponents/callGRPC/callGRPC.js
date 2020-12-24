@@ -11,7 +11,7 @@ class webComponent extends HTMLElement {
 
     constructor() {
         super()
-        request = new HelloRequest();
+        request = new ListRequest();
     }
 
     async connectedCallback() {

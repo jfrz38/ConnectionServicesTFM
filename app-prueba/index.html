@@ -30,7 +30,7 @@
   </head>
   <div id="div-left" class="split left">
     <div class="centered">
-      <p>AQUÍ HAY TRES WEB COMPONENTS</p>
+      <label>COMUNICACIÓN ENTRE WEB COMPONENTS NATIVOS</label>
       <hr />
       <div style="display: flex">
         <side-web-component
@@ -96,7 +96,7 @@
   </div>
   <div class="split right">
     <div class="centered">
-      <p>AQUÍ SE HACE USO DE GRPC O DE UN ENDPOINT</p>
+      <label>COMUNICACIÓN ENTRE WEB COMPONENTS RECIBIENDO DATOS DE gRPC O UN ENDPOINT</label>
       <hr />
       <call-grpc></call-grpc>
       <call-api></call-api>
@@ -122,6 +122,8 @@
         >
         y los <a href="https://github.com/grpc/grpc-web">ejemplos de GitHub.</a>
       </p>
+      <p>La API devuelve una lista en formato JSON: Existe un servicio que escucha peticiones en el puerto 4000 y devuelve una lista de elementos de tipo String.</p>
+      <p>gRPC necesita primero crear el buffer y después desplegar el servidor en el puerto 8081 para devolver una lista de elementos de tipo String. Además, para que el cliente pueda utilizar algunas funciones de gRPC es necesario modificar la clase del Web Component <b>callGRPC.js</b> para que pueda ser utilizada en un cliente web.</p>
     </div>
   </div>
 

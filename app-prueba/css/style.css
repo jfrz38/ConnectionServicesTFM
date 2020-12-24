@@ -29,6 +29,10 @@ body {
     transform: translate(-50%, 0%);
     text-align: center;
   }
+
+  p{
+    text-align: left;
+  }
   
   .centered img {
     width: 150px;
