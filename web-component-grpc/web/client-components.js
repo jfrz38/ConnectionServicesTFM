@@ -3,3 +3,4 @@
 //como de 'interfaz'
 
 require('./components/firstComponent/web-component-client')
+require('./components/secondComponent/client')

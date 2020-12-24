@@ -6,10 +6,22 @@ service Greeter {
   rpc SayHello (HelloRequest) returns (HelloReply);
 }
 
+service Receiver{
+  rpc ReceiveData (FirstRequest) returns (FirstReply)
+}
+
 message HelloRequest {
   string name = 1;
 }
 
 message HelloReply {
   string message = 1;
+}
+
+message FirstRequest{
+  string requestName = 1;
+}
+
+message FirstReply{
+  string replyName = 1;
 }

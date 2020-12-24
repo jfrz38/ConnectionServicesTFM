@@ -14,4 +14,4 @@ npx webpack client.js
 
 node server.js &
 docker run -d -v "$(pwd)"/envoy.yaml:/etc/envoy/envoy.yaml:ro --network=host envoyproxy/envoy:v1.15.0
-python3 -m http.server 8080 &
+python3 -m http.server 8081 &

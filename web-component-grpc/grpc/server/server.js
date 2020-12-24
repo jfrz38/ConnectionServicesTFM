@@ -21,9 +21,14 @@ var helloworld = protoDescriptor.helloworld;
  * @param {function():?} callback
  */
 function doSayHello(call, callback) {
+  console.log("entra say hello")
   callback(null, {
     message: 'Hello! ' + call.request.name
   });
+}
+
+function doReceiveData(call, callback){
+  callback
 }
 
 /**
@@ -34,6 +39,10 @@ function getServer() {
   server.addService(helloworld.Greeter.service, {
     sayHello: doSayHello,
   });
+  server.addService(helloworld.Receiver.service,{
+    receiveData: doReceiveData,
+  });
+
   return server;
 }
 
@@ -46,4 +55,5 @@ if (require.main === module) {
   });
 }
 
+//TODO: Crear un método bindeado al RPC que cuando desde aquí se le llame (no desde el cliente, desde aquí) le aparezca el mensaje al cliente ????
 exports.getServer = getServer;
