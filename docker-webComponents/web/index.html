@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="css/style.css" rel="stylesheet" />
+    <script src="dist/main.js"></script>
+  </head>
+  <div id="div-left" class="split left">
+    <div class="centered">
+      <label>CARGA DE WEB COMPONENTS DESDE UN CONTENEDOR</label>
+      <hr />
+      <div style="display: flex">
+        <side-web-component
+          style="flex: 1"
+          position="left"
+        ></side-web-component>
+        <central-web-component style="flex: 1"></central-web-component>
+        <side-web-component
+          style="flex: 1"
+          position="right"
+        ></side-web-component>
+      </div>
+      <hr />
+      <p>
+        Estos WebComponents están alojados cada uno en un contenedor y la página los carga accediendo a la IP del propio contenedor.
+      </p>
+      <hr />
+    </div>
+  </div>
+  <div class="split right">
+    <div class="centered">
+      <label>AHORA MISMO NO SE UTILIZA ESTA PARTE</label>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("side-operation", this);
+    document.addEventListener("gRPC-call", this);
+    document.addEventListener("api-call", this);
+    function handleEvent(event) {
+      if (event.type === "side-operation") {
+        this.callChildOperation(event.detail);
+      } else if (event.type === "gRPC-call") {
+        this.updateChildList("gRPC", event.detail);
+      } else if (event.type === "api-call") {
+        this.updateChildList("API", event.detail);
+      }
+    }
+
+    function callChildOperation(details) {
+      document.querySelector("central-web-component").update(details);
+    }
+
+    function updateChildList(title, detail) {
+      document.querySelector("list-grpc").updateList(title, detail.list);
+    }
+  </script>
+</html>
