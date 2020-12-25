@@ -15,6 +15,8 @@
 const grpc = {};
 grpc.web = require('grpc-web');
 
+
+var google_protobuf_empty_pb = require('google-protobuf/google/protobuf/empty_pb.js')
 const proto = {};
 proto.list = require('./list_pb.js');
 
@@ -73,16 +75,16 @@ proto.list.ListPromiseClient =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.list.Request,
+ *   !proto.google.protobuf.Empty,
  *   !proto.list.Response>}
  */
 const methodDescriptor_List_GetElements = new grpc.web.MethodDescriptor(
   '/list.List/GetElements',
   grpc.web.MethodType.UNARY,
-  proto.list.Request,
+  google_protobuf_empty_pb.Empty,
   proto.list.Response,
   /**
-   * @param {!proto.list.Request} request
+   * @param {!proto.google.protobuf.Empty} request
    * @return {!Uint8Array}
    */
   function(request) {
@@ -95,13 +97,13 @@ const methodDescriptor_List_GetElements = new grpc.web.MethodDescriptor(
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.list.Request,
+ *   !proto.google.protobuf.Empty,
  *   !proto.list.Response>}
  */
 const methodInfo_List_GetElements = new grpc.web.AbstractClientBase.MethodInfo(
   proto.list.Response,
   /**
-   * @param {!proto.list.Request} request
+   * @param {!proto.google.protobuf.Empty} request
    * @return {!Uint8Array}
    */
   function(request) {
@@ -112,7 +114,7 @@ const methodInfo_List_GetElements = new grpc.web.AbstractClientBase.MethodInfo(
 
 
 /**
- * @param {!proto.list.Request} request The
+ * @param {!proto.google.protobuf.Empty} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
@@ -133,7 +135,7 @@ proto.list.ListClient.prototype.getElements =
 
 
 /**
- * @param {!proto.list.Request} request The
+ * @param {!proto.google.protobuf.Empty} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata

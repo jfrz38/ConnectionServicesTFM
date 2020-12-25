@@ -1,15 +1,11 @@
 syntax = "proto3";
-
+import "google/protobuf/empty.proto";
 package list;
 
 service List {
-  rpc GetElements(Request) returns (Response){
+  rpc GetElements(google.protobuf.Empty) returns (Response){
 
   }
-}
-
-message Request {
-  int32 id = 1;
 }
 
 message Response {

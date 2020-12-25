@@ -1,10 +1,10 @@
 
-const { Request, Response } = require('../../../grpc/proto/list_pb');
+//const { Request, Response } = require('../../../grpc/proto/list_pb');
 const { ListClient } = require('../../../grpc/proto/list_grpc_web_pb.js');
 
 var client = new ListClient
-//('http://' + window.location.hostname + ':8080', null, null);
-('http://localhost:8080',null, null);
+('http://' + window.location.hostname + ':8080', null, null);
+//('http://localhost:8081',null, null);
 //('http://162.168.67.92:8080', null, null);
 
 //('http://' + window.location.hostname + ':8080', null, null);
@@ -12,13 +12,13 @@ var client = new ListClient
 //('http://162.168.67.92:8081', null, null);
 
 var searchButton;
-var request;
+//var request;
 
 class webComponent extends HTMLElement {
 
     constructor() {
         super()
-        request = new Request();
+        //request = new Request();
     }
 
     async connectedCallback() {
@@ -41,7 +41,7 @@ class webComponent extends HTMLElement {
     callGRPC(){
         //Llamar a GRPC para obtener los datos
         console.log("call gRPC")
-        request.setId(1)
+        //request.setId(1)
         client.getElements({}, (err, response) => {
             if (err) console.log("ERROR getting message: ", err)
             console.log("response = ",response)
