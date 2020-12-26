@@ -13,6 +13,9 @@
     <script type="module" src="./components/rightData/right.js"></script>
     <!-- Bottom -->
     <script type="module" src="./components/bottomData-wc/bottom.js"></script>
+    <!-- Map -->
+    <script type="module" src="./components/map-wc/map.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
   </head>
   <body style="background-color: aqua; margin:15px">
   
@@ -29,7 +32,11 @@
             <div class="col-md-3">2.4</div>
           </div>
           <div class="row">
-            <div class="col-md-8">3.1</div>
+            <div class="col-md-8">
+              <map-wc></map-wc>
+              <div id="myPieChart"></div>
+
+            </div>
             <div class="col-md-4">3.2</div>
           </div>
           <div class="row">
