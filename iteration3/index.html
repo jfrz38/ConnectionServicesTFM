@@ -4,13 +4,25 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  
+    <!-- Left -->
+    <script type="module" src="./components/search-wc/search.js"></script>
+    <!-- Upper -->
+    <script type="module" src="./components/upperData-wc/upper.js"></script>
+    <!-- Right -->
+    <script type="module" src="./components/rightData/right.js"></script>
+    <!-- Bottom -->
+    <script type="module" src="./components/bottomData-wc/bottom.js"></script>
   </head>
   <body style="background-color: aqua; margin:15px">
   
     <div class="row">
-        <div class="col-md-2">1</div>
+        <div class="col-md-2">
+          <search-wc></search-wc>
+        </div>
         <div class="col-md-10">
           <div class="row">
+            <upper-data-wc></upper-data-wc>
             <div class="col-md-3">2.1</div>
             <div class="col-md-3">2.2</div>
             <div class="col-md-3">2.3</div>
