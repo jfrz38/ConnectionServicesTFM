@@ -14,7 +14,7 @@ class searchWC extends HTMLElement {
     }
 
     async loadHTML() {
-        let res = await fetch('./components/left-wc/leftWC.html')
+        let res = await fetch('./components/search-wc/search.html')
         this.attachShadow({ mode: 'open' })
             .innerHTML = await res.text()
         results = this.shadowRoot.getElementById("results")
@@ -45,4 +45,4 @@ class searchWC extends HTMLElement {
     }
 }
 
-window.customElements.define('search-wc', search)
+window.customElements.define('search-wc', searchWC)
