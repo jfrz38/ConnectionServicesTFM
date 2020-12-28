@@ -1,3 +1,4 @@
+import earthFlag from './assets/img/base64img.js';
 
 class upperData extends HTMLElement {
 
@@ -16,36 +17,32 @@ class upperData extends HTMLElement {
         
             // Mostrar valores globales
             this.loadInitData();
-            // Escuchar eventos
-            this.addEventListener("update-upperData",this);
-    }
-
-    static get observedAttributes() {
-        return ['type'];
-    }
-    get type() {
-        return this.getAttribute('type')
-    }
-
-    set type(newType) {
-        return this.getAttribute('type', newType)
     }
 
     async loadInitData(){
-
+        this.updateData("")
     }
 
-    handleEvent(event){
-        if(event.type === "update-upperData"){
-            console.log("LISTENER UPPER: ",event.detail)
+    async updateData(countryCode){
+        var data = this.getData(countryCode);
+        
+        this.shadowRoot.getElementById("flag").src = data.flag ? data.flag: earthFlag.image;
+        this.shadowRoot.getElementById("country").innerText = data.country ? data.country : "";
+        this.shadowRoot.getElementById("confirmed").innerText = data.confirmed ? data.confirmed : "";
+        this.shadowRoot.getElementById("recovered").innerText = data.recovered ? data.recovered : "";
+        this.shadowRoot.getElementById("deaths").innerText = data.deaths ? data.deaths : "";
+    }
 
-            var country = this.shadowRoot.getElementById("country");
-            var confirmed = this.shadowRoot.getElementById("confirmed");
-            var recovered = this.shadowRoot.getElementById("recovered");
-            var deaths = this.shadowRoot.getElementById("deaths");
-
-            //TODO
+    getData(countryCode){
+        var data = {};
+        if(countryCode == ""){
+            //valores globales
+            data.flag = ""
+            //Llamada a la API
+        }else{
+            //Llamada a la API
         }
+        return data;
     }
 }
 

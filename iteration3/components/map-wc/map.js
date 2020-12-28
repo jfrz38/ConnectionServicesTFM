@@ -1,44 +1,37 @@
 class map extends HTMLElement {
 
-constructor() {
-    super()
-}
+    constructor() {
+        super()
+    }
 
-async connectedCallback() {
-    await this.loadHTML()
-}
+    async connectedCallback() {
+        await this.loadHTML()
+    }
 
-async loadHTML() {
-    let res = await fetch('./components/map-wc/map.html')
-    this.attachShadow({ mode: 'open' })
-        .innerHTML = await res.text()
-    var script = document.createElement('script');
-    script.src = 'https://www.gstatic.com/charts/loader.js';
-    document.head.appendChild(script);
-    console.log("added script")
-    var script2 = document.createElement('script');
+    async loadHTML() {
+        let res = await fetch('./components/map-wc/map.html')
+        this.attachShadow({ mode: 'open' })
+            .innerHTML = await res.text()
+        var script = document.createElement('script');
+        script.src = 'https://www.gstatic.com/charts/loader.js';
+        document.head.appendChild(script);
+        var script2 = document.createElement('script');
+        script2.textContent =
+            `google.charts.load('current', {
+        'packages':['geochart'],
+        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+      });
     
-    var head = await (await fetch('./components/map-wc/headScript.html')).text()
-    script2.textContent = head;
-    document.head.appendChild(script2)
+    google.charts.setOnLoadCallback(x => {
+        document.querySelector("map-wc").drawMap();
+    });`
+        document.head.appendChild(script2)
+    }
 
-        
-}
-
-    drawChart(details) {
-        // Define the chart to be drawn.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Element');
-        data.addColumn('number', 'Percentage');
-        data.addRows([
-        ['Nitrogen', 0.78],
-        ['Oxygen', 0.21],
-        ['Other', 0.01]
-        ]);
-
-        // Instantiate and draw the chart.
-        var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
-        chart.draw(data, null);
+    drawMap() {
+        var data = google.visualization.arrayToDataTable(this.data);
+        var chart = new google.visualization.GeoChart(this.shadowRoot.getElementById('map'));
+        chart.draw(data, this.options);
 
         /*
         <GChart style="width: 100%; height: 100%;"
@@ -51,9 +44,38 @@ async loadHTML() {
         */
     }
 
+    /*static get observedAttributed() {
+        return ['data', 'options', 'key']
+    }*/
+
+    get data() {
+        return JSON.parse(this.getAttribute('data'))
+    }
+    set data(newData) {
+        this.setAttribute('data', newData)
+    }
+    get options() {
+        return JSON.parse(this.getAttribute('options'))
+    }
+    set options(newOptions) {
+        this.setAttribute('options', newOptions)
+    }
+
+    get key() {
+        return JSON.parse(this.getAttribute('key'))
+    }
+    set key(newKey) {
+        this.setAttribute('key', newKey)
+    }
+
+    updateMap(data, options, key){
+        console.log("update map")
+        this.data = data;
+        this.options = options;
+        this.key = key;
+    }
 
 
 }
 
 window.customElements.define('map-wc', map)
-                
