@@ -73,7 +73,20 @@
           </ul>
         </li>
         <li>
-        <h3><a href="/iteration4/">Iteración4:</a> Uso de APIs (servidor Express y servidor gRPC) para obtener datos externos</h3>
+        <h3><a href="/iteration4/">Iteración4:</a> Uso de APIs (servidor Express y servidor gRPC) para obtener datos externos.</h3>
+        <ul>
+          <li>
+            De los cinco componentes en los que se ha dividido la interfaz, 4 de ellos necesitan de llamadas para obtener la información, por lo que se ha decidido utilizar un servidor en Express para dos de ellos y un servidor gRPC para los otros dos.
+            <ul>
+              <li>
+              <b>Express</b>: Se utilizará para el web component de la derecha <b><i>country-info-wc</i></b> (información de un país) y el inferior <b><i>country-statics-wc</i></b> (estadísticas de un país).
+              </li>
+              <li>
+              <b>gRPC</b>: Se utilizará para obtener la lista de países en el componente a la izquierda <b><i>search-wc</i></b> y los datos de los países en el componente superior <b><i>country-data-wc</i></b>.
+              </li>
+            </ul>
+          </li>
+        </ul>
         </li>
       </ul>
     </div>
