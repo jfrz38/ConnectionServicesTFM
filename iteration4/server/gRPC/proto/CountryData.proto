@@ -1,0 +1,36 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+package countrydata;
+
+service CountryData {
+  rpc GetCountryData(Request) returns (Response);
+  rpc GetMapData(Request) returns (MapResponse);
+}
+message Request {
+  string code = 1;
+}
+
+message Response {
+  uint32 confirmed = 1;
+  uint32 recovered = 2;
+  uint32 deaths = 3;
+  google.protobuf.Timestamp date = 4;
+  string flag = 5;
+}
+
+message MapResponse{
+  repeated ResponseData chartData = 1;
+}
+
+message ResponseData {
+  repeated string = 1;
+  repeated object = 2;
+}
+
+/*
+EJEMPLO:
+chartData: [
+          ['Country','Confirmed', 'Deaths'],
+          [ 'ES', 0,0]
+        ],
+*/
