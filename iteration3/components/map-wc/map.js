@@ -9,22 +9,27 @@ class map extends HTMLElement {
     }
 
     async loadHTML() {
-        let res = await fetch('./components/map-wc/map.html')
-        this.attachShadow({ mode: 'open' })
-            .innerHTML = await res.text()
+        let html = `
+        <div>
+            MAP
+            <div id="map" style="width: 100%; height: 100%; min-height: 350px; min-width: 600px;">
+            </div>
+        </div>
+        `
+        this.attachShadow({ mode: 'open' }).innerHTML = html
         var script = document.createElement('script');
         script.src = 'https://www.gstatic.com/charts/loader.js';
         document.head.appendChild(script);
         var script2 = document.createElement('script');
         script2.textContent =
             `google.charts.load('current', {
-        'packages':['geochart'],
-        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
-      });
+                'packages':['geochart'],
+                'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+            });
     
-    google.charts.setOnLoadCallback(x => {
-        document.querySelector("map-wc").drawMap();
-    });`
+            google.charts.setOnLoadCallback(x => {
+                document.querySelector("map-wc").drawMap();
+            });`
         document.head.appendChild(script2)
     }
 

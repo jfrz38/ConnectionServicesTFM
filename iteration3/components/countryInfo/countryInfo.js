@@ -11,9 +11,16 @@ class upperData extends HTMLElement {
     }
 
     async loadHTML() {
-        let res = await fetch('./components/upperData-wc/upper.html')
-        this.attachShadow({ mode: 'open' })
-            .innerHTML = await res.text()
+        let html = `
+        <div class="col-md-3">
+            <img id="flag">
+            Country: <label id="country"></label>
+        </div>
+        <div class="col-md-3">Cofirmed<label id="confirmed"></label></div>
+        <div class="col-md-3">Recovered<label id="recovered"></label></div>
+        <div class="col-md-3">Deaths<label id="deaths"></label></div>
+        `
+        this.attachShadow({ mode: 'open' }).innerHTML = html;
         
             // Mostrar valores globales
             this.loadInitData();
