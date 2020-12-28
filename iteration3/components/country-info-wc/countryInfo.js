@@ -1,6 +1,6 @@
 import earthFlag from './assets/img/base64img.js';
 
-class upperData extends HTMLElement {
+class countryInfo extends HTMLElement {
 
     constructor() {
         super()
@@ -16,9 +16,9 @@ class upperData extends HTMLElement {
             <img id="flag">
             Country: <label id="country"></label>
         </div>
-        <div class="col-md-3">Cofirmed<label id="confirmed"></label></div>
-        <div class="col-md-3">Recovered<label id="recovered"></label></div>
-        <div class="col-md-3">Deaths<label id="deaths"></label></div>
+        <div class="col-md-3">Cofirmed<label id="confirmed"></label><p class="date">date</p></div>
+        <div class="col-md-3">Recovered<label id="recovered"></label><p class="date">date</p></div>
+        <div class="col-md-3">Deaths<label id="deaths"></label><p class="date">date</p ></div>
         `
         this.attachShadow({ mode: 'open' }).innerHTML = html;
         
@@ -27,10 +27,10 @@ class upperData extends HTMLElement {
     }
 
     async loadInitData(){
-        this.updateData("")
+        this.updateInfo("")
     }
 
-    async updateData(countryCode){
+    async updateInfo(countryCode){
         var data = this.getData(countryCode);
         
         this.shadowRoot.getElementById("flag").src = data.flag ? data.flag: earthFlag.image;
@@ -38,6 +38,9 @@ class upperData extends HTMLElement {
         this.shadowRoot.getElementById("confirmed").innerText = data.confirmed ? data.confirmed : "";
         this.shadowRoot.getElementById("recovered").innerText = data.recovered ? data.recovered : "";
         this.shadowRoot.getElementById("deaths").innerText = data.deaths ? data.deaths : "";
+        this.shadowRoot.querySelectorAll(".date").forEach(element => {
+            element.innerText = data.date ? data.date : "";
+        });
     }
 
     getData(countryCode){
@@ -53,4 +56,4 @@ class upperData extends HTMLElement {
     }
 }
 
-window.customElements.define('upper-data-wc', upperData)
+window.customElements.define('country-info-wc', countryInfo)

@@ -2,6 +2,7 @@ var input;
 var results;
 var countries = []
 import list from './countries.js';
+var countriesList = [];
 class searchWC extends HTMLElement {
 
     constructor() {
@@ -14,13 +15,15 @@ class searchWC extends HTMLElement {
 
     async loadHTML() {
         countries = [{"Code":"","Name":"Global"}, ...list.data]
-        let res = await fetch('./components/search-wc/search.html')
-        this.attachShadow({ mode: 'open' })
-            .innerHTML = await res.text()
+        let html = `
+            <input type="text" id="countries" placeholder="text something...">
+            <div id="results"></div>
+        `
+        this.attachShadow({ mode: 'open' }).innerHTML = html
         results = this.shadowRoot.getElementById("results")
         input = this.shadowRoot.getElementById("countries")
         await this.loadCountriesList();
-        input.addEventListener('change', () => {
+        input.addEventListener('input', () => {
             var value = this.shadowRoot.getElementById("countries").value
             this.updateCountriesList(value)
         });
@@ -28,13 +31,14 @@ class searchWC extends HTMLElement {
         
     }
     async updateCountriesList(value){
-        //TODO : Modificar atributo a hidden o algo así mejor que renderizar la lista en cada iteración
-        console.log("update list: ",value)
-        var html = "";
-        countries.filter(x=>x.toUpperCase().includes(value.toUpperCase())).forEach(element => {
-           html += this.setButtonHtml(element);
-        });
-        results.innerHTML = html;
+        countriesList.forEach(element => {
+            var txt = element.innerText;
+            if(txt.toUpperCase().includes(value.toUpperCase())){
+                element.hidden = false;
+            }else{
+                element.hidden = true;
+            }
+        })
     }
 
     async loadCountriesList(){
@@ -43,14 +47,15 @@ class searchWC extends HTMLElement {
             html += this.setButtonHtml(element);
         });
         results.innerHTML = html;
+
+        countriesList = this.shadowRoot.querySelectorAll(".countryButton")
     }
 
     setButtonHtml(element){
-        return '<div><button value="'+element.Code+'" onclick="this.getRootNode().host.selectCountry(this.value)">'+element.Name+'</button></div>';
+        return '<div><button class="countryButton" value="'+element.Code+'" onclick="this.getRootNode().host.selectCountry(this.value)">'+element.Name+'</button></div>';
     }
 
     selectCountry(value){
-        console.log(value)
         this.dispatchEvent(new CustomEvent("update-country-map",{
             bubbles: true,
             detail:{

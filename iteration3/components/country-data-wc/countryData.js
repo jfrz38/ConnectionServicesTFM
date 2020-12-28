@@ -33,6 +33,23 @@ class countryData extends HTMLElement {
         this.shadowRoot.getElementById("countryData").innerHTML = html;
     }
 
+    updateData(code){
+        // Llamar a la API
+        var data = []
+        // Mostrar resultados
+        console.log("update country info: ",data)
+        var html = `
+        <p>Capital: `+data.capital+`</p>
+        <p>Continent: `+data.continent+`</p>
+        <p>Area: `+data.area+` km2</p>
+        <p>Population: `+data.population+`</p>
+        <p>Native name: `+data.nativeName+`</p>
+        <p>Population density: `+data.populationDensity+` pop/km2</p>
+        `;
+
+        this.shadowRoot.getElementById("countryData").innerHTML = html;
+    }
+
 }
 
-window.customElements.define('country-data', countryData)
+window.customElements.define('country-data-wc', countryData)

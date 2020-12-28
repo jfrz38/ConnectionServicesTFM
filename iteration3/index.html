@@ -11,11 +11,11 @@
     <!-- Left -->
     <script type="module" src="./components/search-wc/search.js"></script>
     <!-- Upper -->
-    <script type="module" src="./components/countryInfo/countryInfo.js"></script>
+    <script type="module" src="./components/country-info-wc/countryInfo.js"></script>
     <!-- Right -->
-    <script type="module" src="./components/countryData/countryData.js"></script>
+    <script type="module" src="./components/country-data-wc/countryData.js"></script>
     <!-- Bottom -->
-    <script type="module" src="./components/bottomData-wc/bottom.js"></script>
+    <script type="module" src="./components/country-statics-wc/countryStatics.js"></script>
     <!-- Map -->
     <script type="module" src="./components/map-wc/map.js"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
@@ -23,38 +23,27 @@
   <body style="background-color: aqua; margin:15px">
   
     <div class="row">
-        <div class="col-md-2">
-          <search-wc></search-wc>
+        <div class="col-md-2" style="border: 4px dotted black;">
+          <search-wc ></search-wc>
         </div>
         <div class="col-md-10">
-        <div> 
-          <upper-data-wc class="row"></upper-data-wc>
+        <div style="border: 4px dotted brown;"> 
+          <country-info-wc class="row" ></country-info-wc>
     </div>
           <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8"  style="border: 4px dotted purple;">
               <map-wc
               data='[
                 ["Country","Confirmed", "Deaths"],
                 ["",0,0]
               ]',
-              options='
-              {
-                "region":"world",
-                "legend":"none",
-                "backgroundColor": "#81d4fa"
-              }
-            ',
-              key ="world"></map-wc>
+              code="world"></map-wc>
               <div id="myPieChart"></div>
 
             </div>
-            <country-data></country-data>
+            <country-data-wc class="col-md-2" style="border: 4px dotted green;"></country-data-wc>
           </div>
-          <div class="row">
-            <div class="col-md-4">4.1</div>
-            <div class="col-md-4">4.2</div>
-            <div class="col-md-4">4.3</div>
-          </div>
+          <country-statics-wc class="row" style="border: 4px dotted red;"></country-statics-wc>
       </div>
 </div>  
 </body>

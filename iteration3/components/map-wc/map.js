@@ -1,3 +1,9 @@
+var options= {
+        "region":"world",
+        "legend":"none",
+        "backgroundColor": "#81d4fa"
+    }
+
 class map extends HTMLElement {
 
     constructor() {
@@ -9,12 +15,12 @@ class map extends HTMLElement {
     }
 
     async loadHTML() {
-        let html = `
-        <div>
+        let html =
+        `
             MAP
             <div id="map" style="width: 100%; height: 100%; min-height: 350px; min-width: 600px;">
             </div>
-        </div>
+        
         `
         this.attachShadow({ mode: 'open' }).innerHTML = html
         var script = document.createElement('script');
@@ -36,17 +42,7 @@ class map extends HTMLElement {
     drawMap() {
         var data = google.visualization.arrayToDataTable(this.data);
         var chart = new google.visualization.GeoChart(this.shadowRoot.getElementById('map'));
-        chart.draw(data, this.options);
-
-        /*
-        <GChart style="width: 100%; height: 100%;"
-                  :settings="{ packages: ['geochart'] }"
-                  type="GeoChart"
-                  :data="chartData"
-                  :options="chartOptions"
-                  :key="chartOptions.region"
-                  />
-        */
+        chart.draw(data, options);
     }
 
     /*static get observedAttributed() {
@@ -59,25 +55,22 @@ class map extends HTMLElement {
     set data(newData) {
         this.setAttribute('data', newData)
     }
-    get options() {
-        return JSON.parse(this.getAttribute('options'))
+    get code() {
+        return JSON.parse(this.getAttribute('code'))
     }
-    set options(newOptions) {
-        this.setAttribute('options', newOptions)
-    }
-
-    get key() {
-        return JSON.parse(this.getAttribute('key'))
-    }
-    set key(newKey) {
-        this.setAttribute('key', newKey)
+    set code(newCode) {
+        this.setAttribute('code', newCode)
     }
 
-    updateMap(data, options, key){
-        console.log("update map")
+    updateMap(data, code){
+        console.log("update map: ",data +" ; code = ",code)
         this.data = data;
-        this.options = options;
-        this.key = key;
+        options.region = code === '' ? "world": code;
+        data = [['Country', 'Confirmed', 'Deaths'],
+        [ code, 0,0]]
+        var data = google.visualization.arrayToDataTable(data);
+        var chart = new google.visualization.GeoChart(this.shadowRoot.getElementById('map'));
+        chart.draw(data, options);
     }
 
 
