@@ -27,10 +27,10 @@ class countryData extends HTMLElement {
     }
 
     async loadInitData(){
-        this.updateInfo("")
+        this.updateData("")
     }
 
-    async updateInfo(countryCode){
+    async updateData(countryCode){
         var data = this.getData(countryCode);
         
         this.shadowRoot.getElementById("flag").src = data.flag ? data.flag: earthFlag.image;
