@@ -27,5 +27,6 @@ message MapResponse{
 
 message ResponseData {
   repeated string field1 = 1;
-  repeated bytes field2 = 2;
+  repeated uint32 field2 = 2;
+  repeated uint32 field3 = 3;
 }

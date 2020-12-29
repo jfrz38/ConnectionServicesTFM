@@ -51,7 +51,6 @@ module.exports.getGlobalData = async () => {
           }
         }
       ];
-      console.log("1")
       var result = await countries_model.aggregate(agg)
       if(result.length == 0){
           return {}
@@ -66,6 +65,28 @@ module.exports.getGlobalData = async () => {
         
     }catch(e){
         return {}
+    }
+}
+
+module.exports.getGlobalDataByCountries = async () => {
+    try{
+        var date = await getLastDateFromDB();
+        var countries = await countries_model.find({date:date})
+        if(countries.length == 0) {
+            return []
+        }else{
+            var data = []
+            countries.forEach(element=>{
+                if(element.country_iso2s[0] === undefined) return;
+                if(element.country == "France") element.country_iso2s[0] = "FR"
+                if(element.country == "United Kingdom") element.country_iso2s[0] = "GB"
+                if(element.country == "China") element.country_iso2s[0] = "CN"
+                data.push([element.country_iso2s[0],element.confirmed,element.deaths])
+            })
+            return data;
+        }
+    }catch(e){
+        return [];
     }
 }
 

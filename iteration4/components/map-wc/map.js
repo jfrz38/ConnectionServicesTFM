@@ -4,6 +4,11 @@ var options= {
         "backgroundColor": "#81d4fa"
     }
 
+const { Request, Response } = require('../../server/gRPC/proto/CountryData_pb.js');
+const { CountryDataClient } = require('../../server/gRPC/proto/CountryData_grpc_web_pb.js');
+
+var client = new CountryDataClient('http://' + window.location.hostname + ':8081', null, null);
+
 class map extends HTMLElement {
 
     constructor() {
@@ -41,11 +46,38 @@ class map extends HTMLElement {
 
     drawMap() {
         console.log("draw map")
+        var values = this.loadMapValues("")
         var data = google.visualization.arrayToDataTable(this.data);
         var chart = new google.visualization.GeoChart(this.shadowRoot.getElementById('map'));
         chart.draw(data, options);
     }
 
+    loadMapValues(){
+        console.log("load map values")
+        client.getMapData(new Request(), {}, (err, response)=> {
+            if(err){
+                console.log("error getting message: ",err)
+            }else{
+                var result = response.getChartdataList();
+                console.log("00")
+                console.log(JSON.stringify(response))
+                console.log("aa")
+                console.log(JSON.stringify(result))
+                console.log("bb")
+                var data = [['Country','Confirmed', 'Deaths']];
+                data.push(result)
+                console.log("result = ",result)
+                console.log("data = ",data)
+
+                result.forEach(element => {
+                    console.log("element 1 = ",element.getField1List())
+                    console.log("element 2 = ",element.getField2List())
+                    console.log("element 3 = ",element.getField3List())
+                })
+            }
+            
+        })
+    }
     /*static get observedAttributed() {
         return ['data', 'options', 'key']
     }*/

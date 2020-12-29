@@ -23,6 +23,7 @@ var mongoService = require('./service')
  * @param {function():?} callback
  */
 async function doGetCountryData(call, callback) {
+
   var code = call.request.code;
   var data = {}
   if(code === ""){
@@ -32,21 +33,17 @@ async function doGetCountryData(call, callback) {
     //País
     data = await mongoService.getCountryData(code)
   }
-  console.log("data = ",data)
                     
   callback(null, {
     data: data
   });
 }
 
-function doGetMapData(call, callback){
-  console.log("entra doGetMapData")
-  console.log("call = ",call)
+async function doGetMapData(call, callback){
+  //var data = await mongoService.getGlobalDataByCountries();
+  data = [["0",0,0],["1",1,1],["2",2,2],["3",3,3]]
   callback(null,{
-    chartData: [
-      ['Country','Confirmed', 'Deaths'],
-      [ 'ES', 0,0]
-    ]
+    chartData: data
   })
 }
 

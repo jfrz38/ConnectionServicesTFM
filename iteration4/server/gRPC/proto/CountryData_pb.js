@@ -851,7 +851,7 @@ proto.countrydata.MapResponse.prototype.clearChartdataList = function() {
  * @private {!Array<number>}
  * @const
  */
-proto.countrydata.ResponseData.repeatedFields_ = [1,2];
+proto.countrydata.ResponseData.repeatedFields_ = [1,2,3];
 
 
 
@@ -885,7 +885,8 @@ proto.countrydata.ResponseData.prototype.toObject = function(opt_includeInstance
 proto.countrydata.ResponseData.toObject = function(includeInstance, msg) {
   var f, obj = {
     field1List: (f = jspb.Message.getRepeatedField(msg, 1)) == null ? undefined : f,
-    field2List: msg.getField2List_asB64()
+    field2List: (f = jspb.Message.getRepeatedField(msg, 2)) == null ? undefined : f,
+    field3List: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -927,8 +928,16 @@ proto.countrydata.ResponseData.deserializeBinaryFromReader = function(msg, reade
       msg.addField1(value);
       break;
     case 2:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.addField2(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedUint32() : [reader.readUint32()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addField2(values[i]);
+      }
+      break;
+    case 3:
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedUint32() : [reader.readUint32()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addField3(values[i]);
+      }
       break;
     default:
       reader.skipField();
@@ -966,10 +975,17 @@ proto.countrydata.ResponseData.serializeBinaryToWriter = function(message, write
       f
     );
   }
-  f = message.getField2List_asU8();
+  f = message.getField2List();
   if (f.length > 0) {
-    writer.writeRepeatedBytes(
+    writer.writePackedUint32(
       2,
+      f
+    );
+  }
+  f = message.getField3List();
+  if (f.length > 0) {
+    writer.writePackedUint32(
+      3,
       f
     );
   }
@@ -1014,40 +1030,16 @@ proto.countrydata.ResponseData.prototype.clearField1List = function() {
 
 
 /**
- * repeated bytes field2 = 2;
- * @return {!(Array<!Uint8Array>|Array<string>)}
+ * repeated uint32 field2 = 2;
+ * @return {!Array<number>}
  */
 proto.countrydata.ResponseData.prototype.getField2List = function() {
-  return /** @type {!(Array<!Uint8Array>|Array<string>)} */ (jspb.Message.getRepeatedField(this, 2));
+  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 2));
 };
 
 
 /**
- * repeated bytes field2 = 2;
- * This is a type-conversion wrapper around `getField2List()`
- * @return {!Array<string>}
- */
-proto.countrydata.ResponseData.prototype.getField2List_asB64 = function() {
-  return /** @type {!Array<string>} */ (jspb.Message.bytesListAsB64(
-      this.getField2List()));
-};
-
-
-/**
- * repeated bytes field2 = 2;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getField2List()`
- * @return {!Array<!Uint8Array>}
- */
-proto.countrydata.ResponseData.prototype.getField2List_asU8 = function() {
-  return /** @type {!Array<!Uint8Array>} */ (jspb.Message.bytesListAsU8(
-      this.getField2List()));
-};
-
-
-/**
- * @param {!(Array<!Uint8Array>|Array<string>)} value
+ * @param {!Array<number>} value
  * @return {!proto.countrydata.ResponseData} returns this
  */
 proto.countrydata.ResponseData.prototype.setField2List = function(value) {
@@ -1056,7 +1048,7 @@ proto.countrydata.ResponseData.prototype.setField2List = function(value) {
 
 
 /**
- * @param {!(string|Uint8Array)} value
+ * @param {number} value
  * @param {number=} opt_index
  * @return {!proto.countrydata.ResponseData} returns this
  */
@@ -1071,6 +1063,43 @@ proto.countrydata.ResponseData.prototype.addField2 = function(value, opt_index) 
  */
 proto.countrydata.ResponseData.prototype.clearField2List = function() {
   return this.setField2List([]);
+};
+
+
+/**
+ * repeated uint32 field3 = 3;
+ * @return {!Array<number>}
+ */
+proto.countrydata.ResponseData.prototype.getField3List = function() {
+  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 3));
+};
+
+
+/**
+ * @param {!Array<number>} value
+ * @return {!proto.countrydata.ResponseData} returns this
+ */
+proto.countrydata.ResponseData.prototype.setField3List = function(value) {
+  return jspb.Message.setField(this, 3, value || []);
+};
+
+
+/**
+ * @param {number} value
+ * @param {number=} opt_index
+ * @return {!proto.countrydata.ResponseData} returns this
+ */
+proto.countrydata.ResponseData.prototype.addField3 = function(value, opt_index) {
+  return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.countrydata.ResponseData} returns this
+ */
+proto.countrydata.ResponseData.prototype.clearField3List = function() {
+  return this.setField3List([]);
 };
 
 
