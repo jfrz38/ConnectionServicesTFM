@@ -1,5 +1,12 @@
 import earthFlag from './assets/img/base64img.js';
 
+const { Request, Response } = require('../../server/gRPC/proto/CountryData_pb.js');
+const { CountryDataClient } = require('../../server/gRPC/proto/CountryData_grpc_web_pb.js');
+
+var client = new CountryDataClient('http://' + window.location.hostname + ':8081', null, null);
+
+var divs = {}
+
 class countryData extends HTMLElement {
 
     constructor() {
@@ -21,38 +28,53 @@ class countryData extends HTMLElement {
         <div class="col-md-3">Deaths<label id="deaths"></label><p class="date">date</p ></div>
         `
         this.attachShadow({ mode: 'open' }).innerHTML = html;
-        
-            // Mostrar valores globales
-            this.loadInitData();
+        //Divs a actualizar
+        divs = {
+            flag: this.shadowRoot.getElementById("flag"),
+            country: this.shadowRoot.getElementById("country"),
+            confirmed: this.shadowRoot.getElementById("confirmed"),
+            recovered: this.shadowRoot.getElementById("recovered"),
+            deaths: this.shadowRoot.getElementById("deaths"),
+            date: this.shadowRoot.querySelectorAll(".date")
+        }
+        console.log("divs = ",divs)
+        // Mostrar valores globales
+        this.loadInitData();
     }
 
     async loadInitData(){
         this.updateData("")
     }
 
-    async updateData(countryCode){
-        var data = this.getData(countryCode);
-        
-        this.shadowRoot.getElementById("flag").src = data.flag ? data.flag: earthFlag.image;
-        this.shadowRoot.getElementById("country").innerText = data.country ? data.country : "";
-        this.shadowRoot.getElementById("confirmed").innerText = data.confirmed ? data.confirmed : "";
-        this.shadowRoot.getElementById("recovered").innerText = data.recovered ? data.recovered : "";
-        this.shadowRoot.getElementById("deaths").innerText = data.deaths ? data.deaths : "";
-        this.shadowRoot.querySelectorAll(".date").forEach(element => {
-            element.innerText = data.date ? data.date : "";
-        });
-    }
-
-    getData(countryCode){
+    updateData(countryCode){
+        //Llamar gRPC
         var data = {};
-        if(countryCode == ""){
-            //valores globales
-            data.flag = ""
-            //Llamada a la API
-        }else{
-            //Llamada a la API
-        }
-        return data;
+        var request = new Request();
+        request.setCode(countryCode);
+        client.getCountryData(request, {}, (err, response)=> {
+            if(err){
+                console.log("error getting message: ",err)
+            }else{
+                var result = response.getData();
+
+                var data = {}
+                data.flag = result.getFlag()
+                data.confirmed = result.getConfirmed()
+                data.recovered = result.getRecovered()
+                data.deaths = result.getDeaths()
+                data.date = result.getDate()
+                data.country = result.getCountry()
+
+                divs.flag.src = data.flag ? data.flag: earthFlag.image;
+                divs.country.innerText = data.country ? data.country : "";
+                divs.confirmed.innerText = data.confirmed ? data.confirmed : "";
+                divs.recovered.innerText = data.recovered ? data.recovered : "";
+                divs.deaths.innerText = data.deaths ? data.deaths : "";
+                divs.date.forEach(element => {
+                    element.innerText = data.date ? data.date : "";
+                });
+            }
+        })
     }
 }
 

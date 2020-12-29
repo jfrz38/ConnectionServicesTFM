@@ -1,5 +1,5 @@
 var path = require('path');
-var PROTO_PATH = path.resolve(__dirname, '..') + '/proto/list.proto';
+var PROTO_PATH = path.resolve(__dirname, '..') + '/proto/CountryData.proto';
 var assert = require('assert');
 var async = require('async');
 var _ = require('lodash');
@@ -15,17 +15,27 @@ var packageDefinition = protoLoader.loadSync(
     oneofs: true
   });
 var protoDescriptor = grpc.loadPackageDefinition(packageDefinition);
-var list = protoDescriptor.list;
+var countrydata = protoDescriptor.countrydata;
+var mongoService = require('./service')
 
 /**
  * @param {!Object} call
  * @param {function():?} callback
  */
-function doGetCountryData(call, callback) {
-  console.log("Entra doGetCountryData")
-  console.log("call = ",call)
+async function doGetCountryData(call, callback) {
+  var code = call.request.code;
+  var data = {}
+  if(code === ""){
+    //Global
+    data = await mongoService.getGlobalData()
+  }else{
+    //País
+    data = await mongoService.getCountryData(code)
+  }
+  console.log("data = ",data)
+                    
   callback(null, {
-    response: {}
+    data: data
   });
 }
 
