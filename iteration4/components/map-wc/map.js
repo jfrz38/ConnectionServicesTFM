@@ -40,6 +40,7 @@ class map extends HTMLElement {
     }
 
     drawMap() {
+        console.log("draw map")
         var data = google.visualization.arrayToDataTable(this.data);
         var chart = new google.visualization.GeoChart(this.shadowRoot.getElementById('map'));
         chart.draw(data, options);
@@ -63,9 +64,10 @@ class map extends HTMLElement {
     }
 
     updateMap(data, code){
-        console.log("update map: ",data +" ; code = ",code)
+        if(code === "") code = "world";
+        if(options.region === code) return;
         this.data = data;
-        options.region = code === '' ? "world": code;
+        options.region = code;
         data = [['Country', 'Confirmed', 'Deaths'],
         [ code, 0,0]]
         var data = google.visualization.arrayToDataTable(data);

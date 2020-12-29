@@ -139,7 +139,6 @@ class countryStatics extends HTMLElement {
         divs.deathsDay = this.shadowRoot.getElementById("deathDay")
         divs.deathsWeek = this.shadowRoot.getElementById("deathWeeks")
 
-        console.log("divs = ",divs)
         // Mostrar valores globales
         this.updateGlobalStatics();
     }
@@ -176,7 +175,6 @@ class countryStatics extends HTMLElement {
 
         Promise.all(promises).then(response=>{
             //Esconder loader
-            console.log("response = ",response)
             //Confirmed
             divs.confirmedDay.innerText = response[0].dayImprove
             divs.confirmedWeek.innerText = response[0].weeksImprove

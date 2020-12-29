@@ -8,7 +8,7 @@ function handleEvent(event) {
 function countrySelected(code){
     
     //Llamar a todos los hijos necesarios para actualizar los valores
-    console.log("event = ",code)
+    console.log("event = <"+code+">")
     document.querySelector("country-info-wc").updateInfo(code);
     document.querySelector("map-wc").updateMap([],code);
     document.querySelector("country-data-wc").updateData(code);

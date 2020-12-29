@@ -1,5 +1,4 @@
 syntax = "proto3";
-import "google/protobuf/timestamp.proto";
 package countrydata;
 
 service CountryData {
@@ -11,11 +10,15 @@ message Request {
 }
 
 message Response {
-  uint32 confirmed = 1;
-  uint32 recovered = 2;
-  uint32 deaths = 3;
-  google.protobuf.Timestamp date = 4;
-  string flag = 5;
+  message obj {
+    uint32 confirmed = 1;
+    uint32 recovered = 2;
+    uint32 deaths = 3;
+    string date = 4;
+    string flag = 5;
+    string country = 6;
+  }
+  obj data = 1;
 }
 
 message MapResponse{
@@ -23,14 +26,6 @@ message MapResponse{
 }
 
 message ResponseData {
-  repeated string = 1;
-  repeated object = 2;
+  repeated string field1 = 1;
+  repeated bytes field2 = 2;
 }
-
-/*
-EJEMPLO:
-chartData: [
-          ['Country','Confirmed', 'Deaths'],
-          [ 'ES', 0,0]
-        ],
-*/
