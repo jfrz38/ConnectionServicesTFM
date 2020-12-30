@@ -78,11 +78,11 @@ export default function render() {
       <hr />
       <table style="width: 100%;">
         <tr>
-          <th> <call-grpc></call-grpc> </th>
-          <th> <call-api></call-api> </th>
+          <th> <call-grpc><!--# include virtual="/grpc" --></call-grpc> </th>
+          <th> <call-api><!--# include virtual="/api" --></call-api> </th>
         </tr>
         <tr>
-          <td colspan="2"><list-grpc></list-grpc></td>
+          <td colspan="2"><list-grpc><!--# include virtual="/list" --></list-grpc></td>
         </tr>
       </table>
 

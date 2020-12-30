@@ -31,8 +31,12 @@ services:
 
   api:
     build: ./right-wc/call-api
+    environment:
+      HOST: express-api
+      PORT: 52010
     ports:
      - "5204:5204"
+
 
   grpc:
     build: ./right-wc/call-grpc
@@ -43,4 +47,10 @@ services:
     build: ./right-wc/list-result
     ports:
      - "5206:5206"
+  
+  express-api:
+    build: ./api/express
+    ports:
+      - "5210:5210"
+
 

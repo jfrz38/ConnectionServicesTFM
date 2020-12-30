@@ -14,4 +14,4 @@ COPY ./src /code/src
 # COPY ./images /code/images
 
 EXPOSE 5204
-CMD [ "npm", "start" ]
+CMD [ "npm", "start"]
