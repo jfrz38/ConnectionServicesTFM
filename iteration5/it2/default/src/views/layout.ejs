@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="/common/page.css" rel="stylesheet">
+  </head>
+<main id="app"><%- html %></main>
+
+<script src="/common/document-register-element.js"></script>
+<script src="/center/page.js" async></script>
+<script src="/side/page.js" async></script>
+  
+  <script>
+    document.addEventListener("side-operation", this);
+    document.addEventListener("gRPC-call", this);
+    document.addEventListener("api-call", this);
+    function handleEvent(event) {
+      if (event.type === "side-operation") {
+        this.callChildOperation(event.detail);
+      } else if (event.type === "gRPC-call") {
+        this.updateChildList("gRPC", event.detail);
+      } else if (event.type === "api-call") {
+        this.updateChildList("API", event.detail);
+      }
+    }
+
+    function callChildOperation(details) {
+      document.querySelector("central-web-component").update(details);
+    }
+
+    function updateChildList(title, detail) {
+      document.querySelector("list-grpc").updateList(title, detail.list);
+    }
+  </script>
+</html>
