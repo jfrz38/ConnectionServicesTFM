@@ -13,5 +13,5 @@ RUN npm install
 COPY ./src /code/src
 # COPY ./images /code/images
 
-EXPOSE 3001
+EXPOSE 5101
 CMD [ "npm", "start" ]

@@ -6,7 +6,7 @@ export default function renderPage() {
         </div>
         <div>
             <p>Este es otro web component con un atributo</p>
-            <second-wc ><!--#include virtual="/wc2?initialValue=0" --></second-wc>
+            <second-wc initialValue=0><!--#include virtual="/wc2?initialValue=0" --></second-wc>
         </div>
     `;
   }

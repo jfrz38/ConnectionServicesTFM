@@ -6,7 +6,7 @@ services:
      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
      - ./nginx/common:/usr/share/nginx/html/common
     ports:
-     - "3000:3000"
+     - "5100:5100"
     depends_on:
      - default
      - wc1
@@ -15,14 +15,14 @@ services:
   default:
     build: ./default
     ports:
-     - "3001:3001"
+     - "5101:5101"
 
   wc1:
     build: ./wc1
     ports:
-     - "3002:3002"
+     - "5102:5102"
 
   wc2:
     build: ./wc2
     ports:
-     - "3003:3003"
+     - "5103:5103"
