@@ -1,4 +1,4 @@
-body {
+  body {
   font-family: Arial;
   color: white;
   background-color: rgb(3, 116, 136);
@@ -6,10 +6,28 @@ body {
 p{
   font-size: x-large;
   font-weight: bold;
+  
 }
   .centered{
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0%);
     text-align: center;
+    height: calc(100% - 200px);
+  }
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background-color: rgb(255, 89, 89);
+    color: white;
+    text-align: center;
+    z-index: 1;
+  }
+  p.foot-p{
+    text-align:center;
+    font-size: medium;
+    font-weight: normal;
   }
