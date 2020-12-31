@@ -9,14 +9,13 @@ export default function render() {
           style="flex: 1"
           position="left"
         >
-        <!--# include virtual="/side?position=left" -->
         </side-web-component>
-        <central-web-component style="flex: 1"><!--# include virtual="/center" --></central-web-component>
+        <central-web-component style="flex: 1"></central-web-component>
         <side-web-component
           style="flex: 1"
           position="right"
         >
-        <!--# include virtual="/side?position=right" -->
+        
         </side-web-component>
       </div>
       <hr />
@@ -78,11 +77,11 @@ export default function render() {
       <hr />
       <table style="width: 100%;">
         <tr>
-          <th> <call-grpc><!--# include virtual="/grpc" --></call-grpc> </th>
-          <th> <call-api><!--# include virtual="/api" --></call-api> </th>
+          <th> <call-grpc></call-grpc> </th>
+          <th> <call-api></call-api> </th>
         </tr>
         <tr>
-          <td colspan="2"><list-result path="/list"><!-- # include virtual="/list" --></list-result></td>
+          <td colspan="2"><list-result path="/list"></list-result></td>
         </tr>
       </table>
 

@@ -5,7 +5,7 @@ class WebComponent extends HTMLElement{
     
     connectedCallback() {
         console.log('connected list component');
-        this.render();
+        // this.render();
     }
 
     async render() {
@@ -13,7 +13,6 @@ class WebComponent extends HTMLElement{
     }
 
     async updateList(detail){
-        console.log("Update list : ",detail.type)
         var response = await fetch('http://' + window.location.hostname+':5200/list/'+detail.type)
         const html = await response.text();
         this.innerHTML = html;
