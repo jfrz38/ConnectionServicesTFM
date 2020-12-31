@@ -13,7 +13,6 @@
   "author": "jfrz38",
   "license": "ISC",
   "dependencies": {
-    "cross-fetch": "^3.0.6",
     "ejs": "^2.7.4",
     "express": "^4.17.1"
   },

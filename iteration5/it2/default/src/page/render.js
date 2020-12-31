@@ -82,7 +82,7 @@ export default function render() {
           <th> <call-api><!--# include virtual="/api" --></call-api> </th>
         </tr>
         <tr>
-          <td colspan="2"><list-grpc><!--# include virtual="/list" --></list-grpc></td>
+          <td colspan="2"><list-result path="/list"><!-- # include virtual="/list" --></list-result></td>
         </tr>
       </table>
 

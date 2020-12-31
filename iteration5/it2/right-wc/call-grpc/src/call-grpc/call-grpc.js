@@ -3,10 +3,10 @@ import render from './render';
 class WebComponent extends HTMLElement{
 
     connectedCallback() {
-        console.log('connected API button component');
+        console.log('connected gRPC button component');
         this.render();
-        this.querySelector('#searchAPI').addEventListener('click', () => {
-            this.updateList();
+        this.querySelector('#searchGRPC').addEventListener('click', () => {
+            this.callGrpc();
         });
     }
 
@@ -15,14 +15,16 @@ class WebComponent extends HTMLElement{
       }
 
 
-    async updateList(){
+    async callGrpc(){
+        //Llamar a la API
         this.dispatchEvent(new CustomEvent("list-call", { 
             bubbles: true, 
             composed: true,
             detail:{
-                type: "api"
+                type: "gRPC"
             }
         }));
+        
     }
 }
 export default WebComponent;

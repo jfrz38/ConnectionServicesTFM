@@ -15,24 +15,21 @@
   
   <script>
     document.addEventListener("side-operation", this);
-    document.addEventListener("gRPC-call", this);
-    document.addEventListener("api-call", this);
+    document.addEventListener("list-call", this);
     function handleEvent(event) {
       if (event.type === "side-operation") {
         this.callChildOperation(event.detail);
-      } else if (event.type === "gRPC-call") {
-        this.updateChildList("gRPC", event.detail);
-      } else if (event.type === "api-call") {
-        this.updateChildList("API", event.detail);
-      }
+      } else if (event.type === "list-call") {
+        this.updateChildList(event.detail);
+      } 
     }
 
     function callChildOperation(details) {
       document.querySelector("central-web-component").update(details);
     }
 
-    function updateChildList(title, detail) {
-      document.querySelector("list-grpc").updateList(title, detail.list);
+    function updateChildList(detail) {
+      document.querySelector("list-result").updateList(detail);
     }
   </script>
 </html>
