@@ -13,7 +13,7 @@ p{
     left: 50%;
     transform: translate(-50%, 0%);
     text-align: center;
-    height: calc(100% - 200px);
+    /*height: calc(100% - 200px);*/
   }
   .footer {
     position: fixed;

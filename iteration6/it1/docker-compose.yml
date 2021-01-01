@@ -1,0 +1,64 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:1-alpine
+    volumes:
+     - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+     - ./nginx/common:/usr/share/nginx/html/common
+    ports:
+     - "6100:6100"
+    depends_on:
+     - default
+     - center
+     - side
+     - api
+     - grpc
+     - list
+
+  default:
+    build: ./default
+    ports:
+     - "6101:6101"
+
+  center:
+    build: ./left-wc/central-wc
+    ports:
+     - "6102:6102"
+  side:
+    build: ./left-wc/side-wc
+    ports:
+     - "6103:6103"
+
+  api:
+    build: ./right-wc/call-api
+    environment:
+      APIHOST: express-api
+      APIPORT: 6110
+    ports:
+     - "6104:6104"
+
+
+  grpc:
+    build: ./right-wc/call-grpc
+    environment:
+      GRPCHOST: server-grpc
+      GRPCPORT: 6111
+    ports:
+     - "6105:6105"
+
+  list:
+    build: ./right-wc/list-result
+    ports:
+     - "6106:6106"
+  
+#  express-api:
+#    build: ./api/express
+#    ports:
+#      - "6110:6110"
+#  
+#  server-grpc:
+#    build: ./api/grpc
+#    ports:
+#      - "6111:6111"
+
+
