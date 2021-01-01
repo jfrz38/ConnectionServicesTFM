@@ -5,19 +5,15 @@ class WebComponent extends HTMLElement{
     
     connectedCallback() {
         console.log('connected list component');
-        // this.render();
+        this.render();
     }
 
-    async render() {
+    render() {
         this.innerHTML = render();
     }
 
-    async updateList(detail){
-        console.log("update list = ",detail)
+    updateList(detail){
         this.innerHTML = render(detail);
-        /*var response = await fetch('http://' + window.location.hostname+':'+location.port+'/list/'+detail.type)
-        const html = await response.text();
-        this.innerHTML = html;*/
     }
 
 }

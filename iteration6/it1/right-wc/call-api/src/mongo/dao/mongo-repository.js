@@ -11,7 +11,7 @@ const axios = require('axios');
         }
       }, {
         '$sort': {
-          'date': 1
+          'date': -1
         }
       }, {
         '$limit': 4
@@ -29,22 +29,10 @@ const axios = require('axios');
         }
       }
     ];
-    var result = await countries_model.aggregate(agg)/*, (err, result) =>{
-      console.log("dentro aggregate: ",result)
-      if(result.length == 0){
-        result = {"list":[]}
-      }else{
-        result = {"list" : result[0].list}
-      }
-    })*/
+    var result = await countries_model.aggregate(agg)
     console.log("result from API = ",result)
-    if(result.length == 0){
-        return {"list":[]}
-      }else{
-        return {"list" : result[0].list}
-      }
-       
-
+    return result.length == 0 ? {"list":[]}: {"list" : result[0].list}
+    
   }
 
   //Información de un país

@@ -1,6 +1,6 @@
 //import fetch from 'cross-fetch';
-require('./mongo-service/domain/db');
-const repository = require('./mongo-service/dao/mongo-repository');
+require('../domain/db');
+const repository = require('../dao/mongo-repository');
 
 export const getList = () => {
     

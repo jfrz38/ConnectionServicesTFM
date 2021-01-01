@@ -15,14 +15,10 @@ class WebComponent extends HTMLElement{
       }
 
 
-    async updateList(){
-        //call api
-        //var response = await 
+    updateList(){
         fetch('http://' + window.location.hostname+':'+location.port+'/api/elements')
-            .then(response => response.text())
+            .then(response => response.json())
             .then(data => {
-                console.log("data = ",data)
-                console.log("list = ",list)
                 this.dispatchEvent(new CustomEvent("list-call", { 
                     bubbles: true, 
                     composed: true,
@@ -31,10 +27,7 @@ class WebComponent extends HTMLElement{
                         list: data.list
                     }
                 }));
-            });
-        //console.log("response = ",response)
-        //console.log("data = ",response.data)
-        
+            });    
     }
 }
 export default WebComponent;

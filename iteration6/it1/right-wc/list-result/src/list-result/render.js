@@ -1,5 +1,4 @@
 export default function render(value) {
-    console.log("value = ",value)
     if(!value || value === undefined) return `<div>Lista no cargada todavía</div>`
     return `
     <div>
