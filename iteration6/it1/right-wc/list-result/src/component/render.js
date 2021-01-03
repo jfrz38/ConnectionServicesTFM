@@ -1,5 +1,5 @@
 export default function render(value) {
-    if(!value || value === undefined) return `<div>Lista no cargada todavía</div>`
+    if(!value || !value.list || !value.title) return `<div>Lista no cargada todavía</div>`
     return `
     <div>
         <p style="text-align:center"> ${value.title} LIST </p>

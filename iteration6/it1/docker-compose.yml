@@ -14,6 +14,7 @@ services:
      - api
      - grpc
      - list
+     - proxy
 
   default:
     build: ./default
@@ -50,6 +51,14 @@ services:
     build: ./right-wc/list-result
     ports:
      - "6106:6106"
+  
+  proxy:
+    image: envoyproxy/envoy:v1.15.0
+    volumes: 
+      - ./grpc-proxy/envoy.yaml:/etc/envoy/envoy.yaml:ro
+    network_mode: host
+
+# docker run -d -v "$(pwd)"/grpc/deploy/envoy.yaml:/etc/envoy/envoy.yaml:ro --network=host envoyproxy/envoy:v1.15.0
   
 #  express-api:
 #    build: ./api/express

@@ -1,11 +1,22 @@
-import express from 'express';
-import render from './call-grpc/render.js'
-
+//import express from 'express';
+//import server from './gRPC/server/server.js'
+const express = require('express')
+const client = require('./gRPC/client/client')
+const server = require('./gRPC/server/server')
 var app = express()
-
 app.use('/grpc', express.static('./build'));
 
-app.use('/grpc', (req, res) => {
-    res.send(render());
+app.use('/grpc/elements', (req, res) => {
+    client.getElements(null, (err,data)=> {
+        if(err){
+            res.status(400).send()
+        }else{
+            res.status(200).send({list:data.list})
+        }
+    })
 });
-app.listen(6105);
+
+app.listen(6105, () => {
+    //server.start();
+    console.log("listening");
+});
