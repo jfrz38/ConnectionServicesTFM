@@ -2,7 +2,7 @@
 require('../domain/db');
 const repository = require('../dao/mongo-repository');
 
-export const getList = () => {
+module.exports.getList = () => {
     
     return repository.getRandomData("es").then(response => {
         console.log("response = ",response)

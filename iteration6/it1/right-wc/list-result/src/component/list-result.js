@@ -2,9 +2,7 @@ import render from './render';
 
 class WebComponent extends HTMLElement{
 
-    
     connectedCallback() {
-        console.log('connected list component');
         this.render();
     }
 

@@ -3,7 +3,6 @@ import render from './render';
 class WebComponent extends HTMLElement{
 
     connectedCallback() {
-        console.log('connected API button component');
         this.render();
         this.querySelector('#searchAPI').addEventListener('click', () => {
             this.updateList();

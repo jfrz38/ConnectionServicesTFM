@@ -1,3 +1,3 @@
-import WebComponent from './side-wc/side-wc'
+import WebComponent from './component/side-wc'
 
 window.customElements.define('side-web-component', WebComponent);

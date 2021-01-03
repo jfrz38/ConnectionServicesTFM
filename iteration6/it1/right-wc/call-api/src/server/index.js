@@ -1,5 +1,5 @@
-import express from 'express';
-import * as service from './mongo/service/service.js'
+var express = require('express');
+var service = require('./mongo/service/service.js')
 
 var app = express()
 

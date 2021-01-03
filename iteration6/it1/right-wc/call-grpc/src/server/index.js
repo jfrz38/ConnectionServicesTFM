@@ -1,5 +1,3 @@
-//import express from 'express';
-//import server from './gRPC/server/server.js'
 const express = require('express')
 const client = require('./gRPC/client/client')
 const server = require('./gRPC/server/server')
@@ -16,7 +14,4 @@ app.use('/grpc/elements', (req, res) => {
     })
 });
 
-app.listen(6105, () => {
-    //server.start();
-    console.log("listening");
-});
+app.listen(6105);

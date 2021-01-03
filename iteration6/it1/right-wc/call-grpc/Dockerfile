@@ -4,7 +4,6 @@ RUN mkdir -p /app
 WORKDIR /app
 
 COPY package.json /app/
-COPY myWebpackConfig.js /app/
 RUN npm install
 COPY ./src /app/src
 
@@ -26,9 +25,9 @@ RUN curl -OL https://github.com/grpc/grpc-web/releases/download/1.2.1/${GRPC_WEB
 RUN mv ${GRPC_WEB} ${GRPC_WEB_PATH}
 RUN chmod +x ${GRPC_WEB_PATH}
 
-RUN protoc -I=./src/gRPC/proto/ list.proto --js_out=import_style=commonjs,binary:./src/component/proto/ --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./src/component/proto/
+RUN protoc -I=./src/server/gRPC/proto/ list.proto --js_out=import_style=commonjs,binary:./src/client/component/proto/ --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./src/client/component/proto/
 
-RUN npx webpack src/client.js --output ./dist/client.js
+RUN npx webpack src/client/client.js --output ./dist/client.js
 # RUN npx webpack --config myWebpackConfig.js
 
 EXPOSE 6110

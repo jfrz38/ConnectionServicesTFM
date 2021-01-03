@@ -7,10 +7,8 @@ import render from './render';
 class WebComponent extends HTMLElement{
 
     connectedCallback() {
-        console.log('connected gRPC button component');
         this.render();
         this.querySelector('#searchGRPC').addEventListener('click', () => {
-            console.log("pulsa botón")
             fetch('http://' + window.location.hostname +':'+ window.location.port+'/grpc/elements')
                 .then(response => response.json())
                 .then(data => {
