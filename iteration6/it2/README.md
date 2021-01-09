@@ -1,3 +1,3 @@
-# Iteración1
+# Iteración6.1
 
-Uso de gRPC server + express
+Componentes full stack + gRPC gateway
