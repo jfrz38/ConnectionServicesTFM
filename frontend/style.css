@@ -1,0 +1,31 @@
+.container{
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1fr;
+    grid-template-rows: 0.75fr 2fr 1.5fr;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.item1 {
+    grid-row:1/4;
+    background-color: red;
+  }
+  .item2 {
+    grid-column:2/4;
+    grid-row-end: 0.5;
+    background-color: green;
+  }
+  .item3 {
+    grid-column-start: 2;
+    background-color: yellow;
+  }
+  .item4 {
+    grid-column:2/4;
+    background-color: orange;
+  }
+  .item5{
+    grid-column-start: 3;
+    grid-row-start: 2;
+      background-color: purple; 
+  }
