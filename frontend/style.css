@@ -2,7 +2,6 @@
     display: grid;
     grid-template-columns: 0.5fr 2fr 1fr;
     grid-template-rows: 0.75fr 2fr 1.5fr;
-    text-align: center;
     width: 100vw;
     height: 100vh;
 }
@@ -27,5 +26,5 @@
   .item5{
     grid-column-start: 3;
     grid-row-start: 2;
-      background-color: purple; 
+    background-color: purple;
   }

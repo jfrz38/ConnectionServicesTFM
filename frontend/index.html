@@ -2,17 +2,21 @@
 <html>
 
 <head>
+    <!-- Cargar web components -->
+    <script type="text/javascript" src="./components/information/index.js"></script>
+    <script type="module" src="./components/search/index.js"></script>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="style.css" rel="stylesheet" />
 </head>
 
 <body>
     <div class="container">
-        <div class="item1">One</div>
+        <search-wc class="item1"></search-wc>
         <div class="item2">Two</div>
         <div class="item3">Three</div>
         <div class="item4">Four</div>
-        <div class="item5">Five</div>
+        <information-wc class="item5"></information-wc>
     </div>
 </body>
 
