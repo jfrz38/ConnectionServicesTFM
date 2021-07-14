@@ -25,6 +25,7 @@ RUN curl -OL https://github.com/grpc/grpc-web/releases/download/1.2.1/${GRPC_WEB
 RUN mv ${GRPC_WEB} ${GRPC_WEB_PATH}
 RUN chmod +x ${GRPC_WEB_PATH}
 RUN rm -rf ${PROTOC_ZIP}
+RUN rm -rf ./proto
 #Generate proto web
 #RUN protoc -I=./src/server/gRPC/proto/ list.proto --js_out=import_style=commonjs,binary:./src/client/component/proto/ --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./src/client/component/proto/
 #Generate proto gateway
