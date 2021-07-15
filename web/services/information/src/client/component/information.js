@@ -3,7 +3,7 @@ import render from './render';
 class WebComponent extends HTMLElement{
 
     connectedCallback() {
-        fetch('http://' + window.location.hostname+':'+location.port+'/api/data')
+        fetch('http://' + window.location.hostname+':'+location.port+'/information/data')
             .then(response => response.json())
             .then(data => {
                 this.render(data.data);

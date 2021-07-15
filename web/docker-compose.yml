@@ -10,8 +10,8 @@ services:
     depends_on:
      - default
      - data
-     - api
-     - grpc
+     - information
+     - search
      - proxy
 
   default:
@@ -24,7 +24,7 @@ services:
     ports:
       - "6202:6202"
 
-  api:
+  information:
     build: ./services/information
     environment:
       APIHOST: express-api
@@ -33,7 +33,7 @@ services:
      - "6204:6204"
 
 
-  grpc:
+  search:
     build: ./services/search
     environment:
       GRPCHOST: server-grpc

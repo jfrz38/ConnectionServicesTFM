@@ -3,7 +3,6 @@ import render from './render';
 class WebComponent extends HTMLElement{
 
     connectedCallback() {
-        console.log("ENTRA connectedCallback data")
         this.render() 
     }
 
