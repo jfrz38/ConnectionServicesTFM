@@ -8,7 +8,7 @@ export default function render() {
             <data-wc type="recover" class="data-card"></data-wc>
             <data-wc type="dead" class="data-card"></data-wc>
         </div>
-        <map-wc class="item3">Three</map-wc>
+        <map-wc class="item3"></map-wc>
         <information-wc class="item5"></information-wc>
     </div>
     `

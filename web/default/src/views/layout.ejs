@@ -14,8 +14,25 @@
 <script src="/data/page.js" async></script>
 <script src="/information/page.js" async></script>
 <script src="/search/page.js" async></script>
-  
-  <script>
-    
-  </script>
+<script src="/map/page.js" async></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {
+        'packages':['geochart'],
+        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+        var values = document.querySelector("map-wc").loadMapValues("")
+        var data = google.visualization.arrayToDataTable(values.data);
+        var chart = new google.visualization.GeoChart(document.getElementById(getMapDivId()));
+
+        chart.draw(data, values.options);
+      }
+
+      function getMapDivId(){
+        return document.querySelector("map-wc").getDivId()
+      }
+    </script>
 </html>

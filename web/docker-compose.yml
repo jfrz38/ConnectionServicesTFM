@@ -23,6 +23,10 @@ services:
     build: ./services/data
     ports:
       - "6202:6202"
+  map:
+    build: ./services/map
+    ports: 
+      - "6203:6203"
 
   information:
     build: ./services/information
