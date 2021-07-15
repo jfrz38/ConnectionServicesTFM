@@ -9,8 +9,7 @@ services:
      - "6200:6200"
     depends_on:
      - default
-     - center
-     - side
+     - data
      - api
      - grpc
      - proxy
@@ -20,17 +19,13 @@ services:
     ports:
      - "6201:6201"
 
-  center:
-    build: ./left-wc/central-wc
+  data:
+    build: ./services/data
     ports:
-     - "6202:6202"
-  side:
-    build: ./left-wc/side-wc
-    ports:
-     - "6203:6203"
+      - "6202:6202"
 
   api:
-    build: ./services/rest
+    build: ./services/information
     environment:
       APIHOST: express-api
       APIPORT: 6210
@@ -39,13 +34,13 @@ services:
 
 
   grpc:
-    build: ./services/grpc
+    build: ./services/search
     environment:
       GRPCHOST: server-grpc
       GRPCPORT: 6211
     ports:
      - "6205:6205"
-  
+      
   proxy:
     image: envoyproxy/envoy:v1.15.0
     volumes: 
