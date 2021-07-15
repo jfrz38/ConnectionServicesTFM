@@ -1,0 +1,53 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:1-alpine
+    volumes:
+     - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+     - ./nginx/common:/usr/share/nginx/html/common
+    ports:
+     - "6200:6200"
+    depends_on:
+     - default
+     - center
+     - side
+     - api
+     - grpc
+     - proxy
+
+  default:
+    build: ./default
+    ports:
+     - "6201:6201"
+
+  center:
+    build: ./left-wc/central-wc
+    ports:
+     - "6202:6202"
+  side:
+    build: ./left-wc/side-wc
+    ports:
+     - "6203:6203"
+
+  api:
+    build: ./services/rest
+    environment:
+      APIHOST: express-api
+      APIPORT: 6210
+    ports:
+     - "6204:6204"
+
+
+  grpc:
+    build: ./services/grpc
+    environment:
+      GRPCHOST: server-grpc
+      GRPCPORT: 6211
+    ports:
+     - "6205:6205"
+  
+  proxy:
+    image: envoyproxy/envoy:v1.15.0
+    volumes: 
+      - ./grpc-proxy/envoy.yaml:/etc/envoy/envoy.yaml:ro
+    network_mode: host
