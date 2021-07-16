@@ -4,7 +4,6 @@ const countries_summary_model = mongoose.model('CountriesSummaryModel');
 const metadata_model = mongoose.model('MetaDataModel');
 
 module.exports.getWorldMap = async () => {
-    console.log("getWorldMap")
     const date = await getLastDateFromDB()
     const country = await countries_summary_model
         .find({ date: date })
@@ -17,6 +16,8 @@ module.exports.getWorldMap = async () => {
         if (element.country == "France") element.country_iso2s[0] = "FR"
         if (element.country == "United Kingdom") element.country_iso2s[0] = "GB"
         if (element.country == "China") element.country_iso2s[0] = "CN"
+        if (element.country == "Denmark") element.country_iso2s[0] = "DK"
+        if (element.country == "Netherlands") element.country_iso2s[0] = "NL"
         data.push([element.country_iso2s[0], element.confirmed, element.deaths])
     })
     return {
@@ -27,7 +28,6 @@ module.exports.getWorldMap = async () => {
 }
 
 module.exports.getRegionMap = async (iso) => {
-    console.log("getRegionMap = ",JSON.stringify(iso,null,4))
     const date = await getLastDateFromDB()
     const result = await countries_summary_model
         .find({ date: date,
@@ -40,6 +40,8 @@ module.exports.getRegionMap = async (iso) => {
     if (country.country == "France") country.country_iso2s[0] = "FR"
     if (country.country == "United Kingdom") country.country_iso2s[0] = "GB"
     if (country.country == "China") country.country_iso2s[0] = "CN"
+    if (country.country == "Denmark") country.country_iso2s[0] = "DK"
+    if (country.country == "Netherlands") country.country_iso2s[0] = "NL"
     return {
         data: [
             ['Country', 'Confirmed', 'Deaths'],

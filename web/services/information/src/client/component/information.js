@@ -6,7 +6,7 @@ class WebComponent extends HTMLElement{
         fetch('http://' + window.location.hostname+':'+location.port+'/information/data')
             .then(response => response.json())
             .then(data => {
-                this.render(data.data);
+                this.render(data);
         }).catch(e => {
             console.log("error = ",e)
         }); 
@@ -16,8 +16,15 @@ class WebComponent extends HTMLElement{
         this.innerHTML = render(data);
     }
 
-    update(iso){
-        console.log("UPDATE INFORMATION = ",iso)
+    update(details){
+        const iso = details.iso.toUpperCase() === "GLOBAL" ? "" : "/"+details.iso
+        fetch('http://' + window.location.hostname+':'+location.port+'/information/data'+iso)
+            .then(response => response.json())
+            .then(data => {
+                this.render(data);
+        }).catch(e => {
+            console.log("error = ",e)
+        }); 
     }
 
 }

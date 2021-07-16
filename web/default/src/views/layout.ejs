@@ -23,8 +23,9 @@
   });
   google.charts.setOnLoadCallback(drawRegionsMap);
 
-  async function drawRegionsMap() {
-    var values = await document.querySelector("map-wc").loadMapValues("")
+  async function drawRegionsMap(country) {
+    if(country === undefined) country = {country:undefined,iso:undefined}
+    var values = await document.querySelector("map-wc").loadMapValues(country)
     var data = google.visualization.arrayToDataTable(values.data);
     var chart = new google.visualization.GeoChart(document.getElementById(getMapDivId()));
 
@@ -34,8 +35,7 @@
   function getMapDivId(){
     return document.querySelector("map-wc").getDivId()
   }
-</script>
-<script>
+
   document.addEventListener("change-country", this);
   function handleEvent(event) {
     this.updateCountryData(event.detail);
@@ -45,7 +45,7 @@
     document.querySelectorAll("data-wc").forEach(element => {
       element.update(details);
     })
-    document.querySelector("map-wc").update(details);
+    drawRegionsMap(details)
     document.querySelector("information-wc").update(details);
   }
 </script>

@@ -2,40 +2,6 @@
 const countries_model = require('../model/country')
 const axios = require('axios');
 
-  //Datos de algunos países
-  module.exports.getRandomData = async (req, res) => {
-    var code = req.code
-    const agg = [
-      {
-        '$match': {
-          'country_iso2s': code.toUpperCase()
-        }
-      }, {
-        '$sort': {
-          'date': -1
-        }
-      }, {
-        '$limit': 4
-      }, {
-        '$group': {
-          '_id': null, 
-          'list': {
-            '$push': {
-              '$dateToString': {
-                'format': '%d-%m', 
-                'date': '$date'
-              }
-            }
-          }
-        }
-      }
-    ];
-    var result = await countries_model.aggregate(agg)
-    console.log("result from API = ",result)
-    return result.length == 0 ? res.status(200).send({"list":[]}): res.status(200).send({"list" : result[0].list})
-    
-  }
-
   //Información de un país
   module.exports.getCountryInfo = async (req, res) => {
     const code = req.params.iso
@@ -371,12 +337,12 @@ const axios = require('axios');
   }
   // Datos
   module.exports.getGlobalData = (req, res) => {
-      return res.status(200).send({data:{
+      return res.status(200).send({
         capital: "N/A",
         continent: "N/A",
         area: "148.9M",
         population: "6155182648",
         nativeName: "N/A",
         populationDensity: "41.34"
-      }})
+      })
   }

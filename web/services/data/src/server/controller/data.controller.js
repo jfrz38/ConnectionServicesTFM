@@ -110,7 +110,6 @@ async function getConfirmedGlobal(res) {
             "message": "Can't retrieve global confirmed"
           });
       }
-      console.log("confirmed = ",result[0].totalConfirmed)
       return res
         .status(200)
         .send({ value: result[0].totalConfirmed });

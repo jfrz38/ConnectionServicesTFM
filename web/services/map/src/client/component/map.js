@@ -16,8 +16,7 @@ class WebComponent extends HTMLElement{
     }
 
     async loadMapValues(info){
-        console.log("info country = ",info.country)
-        var queryData = info.country === "" || info.country === undefined ? "globalData" : `countryData(iso:"${info.country}")`;
+        var queryData = !info || info.country === "" || info.country === undefined || info.country.toUpperCase() === "GLOBAL" ? "globalData" : `countryData(iso:"${info.iso}")`;
         const query = {
             query: `query{
                         ${queryData} {
@@ -35,9 +34,9 @@ class WebComponent extends HTMLElement{
             body: JSON.stringify(query)
           })
           const result = await r.json()
-          queryData = info.country === "" ? "globalData" : "countryData";
+          queryData = !info|| info.country === "" || info.country === undefined || info.country.toUpperCase() === "GLOBAL" ? "globalData" : "countryData";
           const data = result.data[queryData]
-          console.log("DATA = ",data)
+          
           // NO HACER EN UN EJEMPLO REAL
           // Es un ejemplo de por qué no siempre se puede utilizar el método que queramos.
           // En este caso GraphQL nos obliga a parsear todos los strings a enteros iterando con un bucle
@@ -53,10 +52,6 @@ class WebComponent extends HTMLElement{
             }, 
             data:data.data
          }
-    }
-
-    update(iso){
-        this.loadMapValues(iso)
     }
 }
 export default WebComponent;
