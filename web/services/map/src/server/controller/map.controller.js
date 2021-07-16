@@ -11,7 +11,7 @@ module.exports.getWorldMap = async () => {
     if (country.length == 0) {
         return {}
     }
-    var data = []
+    var data = [["Data","Confirmed","Deaths"]]
     country.forEach(element => {
         if (element.country == "France") element.country_iso2s[0] = "FR"
         if (element.country == "United Kingdom") element.country_iso2s[0] = "GB"

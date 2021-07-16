@@ -40,6 +40,7 @@ class WebComponent extends HTMLElement{
           // NO HACER EN UN EJEMPLO REAL
           // Es un ejemplo de por qué no siempre se puede utilizar el método que queramos.
           // En este caso GraphQL nos obliga a parsear todos los strings a enteros iterando con un bucle
+          console.log("data.data = ",data.data)
           for(let i = 1 ; i<data.data.length; i++){
               data.data[i][1] = parseInt(data.data[i][1])
               data.data[i][2] = parseInt(data.data[i][2])
