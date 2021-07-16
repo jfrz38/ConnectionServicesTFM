@@ -4,6 +4,7 @@ const countries_summary_model = mongoose.model('CountriesSummaryModel');
 const metadata_model = mongoose.model('MetaDataModel');
 
 module.exports.getWorldMap = async () => {
+    console.log("getWorldMap")
     const date = await getLastDateFromDB()
     const country = await countries_summary_model
         .find({ date: date })
@@ -26,6 +27,7 @@ module.exports.getWorldMap = async () => {
 }
 
 module.exports.getRegionMap = async (iso) => {
+    console.log("getRegionMap = ",JSON.stringify(iso,null,4))
     const date = await getLastDateFromDB()
     const result = await countries_summary_model
         .find({ date: date,

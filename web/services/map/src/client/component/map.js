@@ -12,12 +12,12 @@ class WebComponent extends HTMLElement{
     }
 
     getDivId(){
-        console.log("NAME getDivId = ",divId)
         return divId;
     }
 
-    async loadMapValues(country){
-        var queryData = country === "" ? "globalData" : `countryData(iso:"${country}")`;
+    async loadMapValues(info){
+        console.log("info country = ",info.country)
+        var queryData = info.country === "" || info.country === undefined ? "globalData" : `countryData(iso:"${info.country}")`;
         const query = {
             query: `query{
                         ${queryData} {
@@ -35,12 +35,12 @@ class WebComponent extends HTMLElement{
             body: JSON.stringify(query)
           })
           const result = await r.json()
-          queryData = country === "" ? "globalData" : "countryData";
+          queryData = info.country === "" ? "globalData" : "countryData";
           const data = result.data[queryData]
+          console.log("DATA = ",data)
           // NO HACER EN UN EJEMPLO REAL
           // Es un ejemplo de por qué no siempre se puede utilizar el método que queramos.
           // En este caso GraphQL nos obliga a parsear todos los strings a enteros iterando con un bucle
-          console.log("data.data = ",data.data)
           for(let i = 1 ; i<data.data.length; i++){
               data.data[i][1] = parseInt(data.data[i][1])
               data.data[i][2] = parseInt(data.data[i][2])
@@ -53,6 +53,10 @@ class WebComponent extends HTMLElement{
             }, 
             data:data.data
          }
+    }
+
+    update(iso){
+        this.loadMapValues(iso)
     }
 }
 export default WebComponent;

@@ -79,10 +79,13 @@
 }
 
 .country-button {
+  background-color: transparent;
+  border: none;
   color: white;
   display: block;
   margin-bottom: 10px;
   text-decoration: none;
+  cursor:pointer;
 }
 
 .country-button:hover > .overlay {

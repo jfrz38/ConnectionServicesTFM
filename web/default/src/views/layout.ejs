@@ -16,24 +16,37 @@
 <script src="/search/page.js" async></script>
 <script src="/map/page.js" async></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {
-        'packages':['geochart'],
-        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
-      });
-      google.charts.setOnLoadCallback(drawRegionsMap);
+<script type="text/javascript">
+  google.charts.load('current', {
+    'packages':['geochart'],
+    'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+  });
+  google.charts.setOnLoadCallback(drawRegionsMap);
 
-      async function drawRegionsMap() {
-        var values = await document.querySelector("map-wc").loadMapValues("")
-        console.log("values = ",values)
-        var data = google.visualization.arrayToDataTable(values.data);
-        var chart = new google.visualization.GeoChart(document.getElementById(getMapDivId()));
+  async function drawRegionsMap() {
+    var values = await document.querySelector("map-wc").loadMapValues("")
+    var data = google.visualization.arrayToDataTable(values.data);
+    var chart = new google.visualization.GeoChart(document.getElementById(getMapDivId()));
 
-        chart.draw(data, values.options);
-      }
+    chart.draw(data, values.options);
+  }
 
-      function getMapDivId(){
-        return document.querySelector("map-wc").getDivId()
-      }
-    </script>
+  function getMapDivId(){
+    return document.querySelector("map-wc").getDivId()
+  }
+</script>
+<script>
+  document.addEventListener("change-country", this);
+  function handleEvent(event) {
+    this.updateCountryData(event.detail);
+  }
+  function updateCountryData(details) {
+    // TODO : Comprobar si actualizan todos o solo el primero
+    document.querySelectorAll("data-wc").forEach(element => {
+      element.update(details);
+    })
+    document.querySelector("map-wc").update(details);
+    document.querySelector("information-wc").update(details);
+  }
+</script>
 </html>

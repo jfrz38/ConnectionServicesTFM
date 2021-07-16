@@ -16,5 +16,9 @@ class WebComponent extends HTMLElement{
         this.innerHTML = render(data);
     }
 
+    update(iso){
+        console.log("UPDATE INFORMATION = ",iso)
+    }
+
 }
 export default WebComponent;

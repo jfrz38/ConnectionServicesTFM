@@ -5,12 +5,10 @@ export default function render(list) {
         <a style="vertical-align: middle; color:white"> COUNTRIES </a>
     </div>
     <hr class="horizontal-separator">
-    <div class="search">`
+    <div id="countries-search" class="search">`
     list.forEach(element => {
         html+=`
-        <div>
-            <a class="country-button" href="/${element.Code}">${element.Name}</a>
-        </div>
+        <button class="country-button" id="${element.Code}">${element.Name}</button>
         `
     })
     html += '</div>'

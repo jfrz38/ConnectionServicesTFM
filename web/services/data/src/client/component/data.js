@@ -4,24 +4,7 @@ import render from './render';
 class WebComponent extends HTMLElement{
 
     connectedCallback() {
-        let type = this.getAttribute('type')
-        if(type === "" || type === undefined || type === null){
-            this.render({title: "Country", text: "Global", image:"/common/assets/img/earth-flag.png"})
-        }else{
-            // TODO: Obtener el ISO code
-            fetch('http://' + window.location.hostname +':'+ window.location.port+'/data/values/es?type='+type)
-            .then(response => response.json())
-            .then(data => {
-                let values = {
-                    title: this.getTitle(type),
-                    text: data.value,
-                    image: this.getImage(type)
-                }
-                this.render(values) 
-            });
-        }
-        
-        
+        this.update({iso:null, country:"global"})
     }
 
     render(data) {
@@ -45,6 +28,32 @@ class WebComponent extends HTMLElement{
         if(type === "recover") return "/common/assets/img/tirita.png"
         if(type === "dead") return "/common/assets/img/group.png"
         return "/common/assets/img/default.png"
+    }
+
+    update(details){
+        const type = this.getAttribute('type')
+        let iso = details.iso
+        const country = details.country
+        if(type === "" || type === undefined || type === null){
+            if(country.toUpperCase() === "GLOBAL"){
+                this.render({title: "Country", text: "Global", image:"/common/assets/img/earth-flag.png"})
+            }else{
+                this.render({title: "Country", text: country, image:"/common/assets/img/earth-flag.png"})
+            }
+            
+        }else{
+            if (iso === undefined || iso === null) iso = "Global"
+            fetch('http://' + window.location.hostname +':'+ window.location.port+'/data/values/'+iso+'?type='+type)
+            .then(response => response.json())
+            .then(data => {
+                let values = {
+                    title: this.getTitle(type),
+                    text: data.value,
+                    image: this.getImage(type)
+                }
+                this.render(values) 
+            });
+        }
     }
 }
 export default WebComponent;

@@ -65,7 +65,7 @@ function getRecoveredByCountry(req, res) {
     });
 }
 
-function getDeathsByCountry(req, res) {
+async function getDeathsByCountry(req, res) {
   countries_summary_model
     .find({ country_iso2s: req.params.iso.toUpperCase() })
     .sort({ date: -1 })
@@ -85,7 +85,8 @@ function getDeathsByCountry(req, res) {
     });
 }
 
-function getConfirmedGlobal(res) {
+async function getConfirmedGlobal(res) {
+  const date = await getLastDateFromDB()
   const agg = [
     {
       '$match': {
@@ -100,7 +101,7 @@ function getConfirmedGlobal(res) {
       }
     }
   ];
-  countries_summary_modely
+  countries_summary_model
     .aggregate(agg, (err, result) => {
       if (result.length == 0) {
         return res
@@ -109,13 +110,15 @@ function getConfirmedGlobal(res) {
             "message": "Can't retrieve global confirmed"
           });
       }
+      console.log("confirmed = ",result[0].totalConfirmed)
       return res
         .status(200)
         .send({ value: result[0].totalConfirmed });
     })
 }
 
-function getRecoveredGlobal(res) {
+async function getRecoveredGlobal(res) {
+  const date = await getLastDateFromDB()
   const agg = [
     {
       '$match': {
@@ -130,7 +133,7 @@ function getRecoveredGlobal(res) {
       }
     }
   ];
-  countries_summary_modely
+  countries_summary_model
     .aggregate(agg, (err, result) => {
       if (result.length == 0) {
         return res
@@ -145,7 +148,8 @@ function getRecoveredGlobal(res) {
     })
 }
 
-function getDeathsGlobal(res) {
+async function getDeathsGlobal(res) {
+  const date = await getLastDateFromDB()
   const agg = [
     {
       '$match': {
@@ -160,7 +164,7 @@ function getDeathsGlobal(res) {
       }
     }
   ];
-  countries_summary_modely
+  countries_summary_model
     .aggregate(agg, (err, result) => {
       if (result.length == 0) {
         return res
@@ -173,4 +177,15 @@ function getDeathsGlobal(res) {
         .status(200)
         .send({ value: result[0].totalDeaths });
     })
+}
+
+async function getLastDateFromDB() {
+  return new Promise(resolve => {
+      metadata_model
+          .find()
+          .exec((err, doc) => {
+              if (doc.length == 0) resolve(new Date());
+              else resolve(doc[0].last_date)
+          })
+  })
 }
