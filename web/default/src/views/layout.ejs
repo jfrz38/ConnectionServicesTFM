@@ -23,8 +23,9 @@
       });
       google.charts.setOnLoadCallback(drawRegionsMap);
 
-      function drawRegionsMap() {
-        var values = document.querySelector("map-wc").loadMapValues("")
+      async function drawRegionsMap() {
+        var values = await document.querySelector("map-wc").loadMapValues("")
+        console.log("values = ",values)
         var data = google.visualization.arrayToDataTable(values.data);
         var chart = new google.visualization.GeoChart(document.getElementById(getMapDivId()));
 

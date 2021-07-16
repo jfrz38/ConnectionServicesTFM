@@ -43,7 +43,7 @@ module.exports.getRegionMap = async (iso) => {
             ['Country', 'Confirmed', 'Deaths'],
             [country.country_iso2s[0], country.confirmed, country.deaths]
         ],
-        region: country.country
+        region: country.country_iso2s[0]
     }
 }
 

@@ -27,7 +27,6 @@
 }
 .item3 {
   grid-column-start: 2;
-  background-color: yellow;
   grid-row-end: 4;
   grid-row-start: 2;
   margin: 5px;
