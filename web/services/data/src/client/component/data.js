@@ -38,7 +38,6 @@ class WebComponent extends HTMLElement{
             if(country.toUpperCase() === "GLOBAL"){
                 this.render({title: "Country", text: "Global", image:"/common/assets/img/earth-flag.png"})
             }else{
-                console.log("iso = ",iso)
                 this.render({title: "Country", text: country, image:"https://www.countryflags.io/"+(iso).toLowerCase()+"/flat/64.png"})
             }
             
