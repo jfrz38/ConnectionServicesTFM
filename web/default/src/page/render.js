@@ -13,18 +13,16 @@ export default function render() {
         <div class="main-panel">
             <div class="content">
                 <div class="container-fluid">
-                    <div class="row">
+                    <div class="row" style="justify-content: space-between;">
                         <data-wc class="col-lg-3 col-md-6 col-sm-6"></data-wc>
                         <data-wc type="confirm" class="col-lg-3 col-md-6 col-sm-6"></data-wc>
                         <data-wc type="recover" class="col-lg-3 col-md-6 col-sm-6"></data-wc>
                         <data-wc type="dead" class="col-lg-3 col-md-6 col-sm-6"></data-wc>
                     </div>
-                    <!--
                     <div class="row" style="justify-content: space-between;">
-                        <map-wc></map-wc>
-                        <information-wc></information-wc>
+                        <map-wc class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-75" style="width: 75%;"></map-wc>
+                        <information-wc class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-25" style="width: 20%;"></information-wc>
                     </div>
-                    -->
                 </div>
             </div>
         </div>

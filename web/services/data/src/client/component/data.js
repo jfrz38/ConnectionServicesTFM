@@ -36,7 +36,6 @@ class WebComponent extends HTMLElement {
 
     update(details) {
         const type = this.getAttribute('type')
-        console.log("TYPE = ", type)
         let iso = details.iso
         const country = details.country
         if (type === "" || type === undefined || type === null) {
@@ -48,7 +47,6 @@ class WebComponent extends HTMLElement {
 
         } else {
             if (iso === undefined || iso === null) iso = "Global"
-            console.log("iso = ", iso)
             fetch('http://' + window.location.hostname + ':' + window.location.port + '/data/values/' + iso + '?type=' + type)
                 .then(response => response.json())
                 .then(data => {
