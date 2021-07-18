@@ -1,0 +1,28 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:1-alpine
+    volumes:
+     - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+     - ./nginx/common:/usr/share/nginx/html/common
+    ports:
+     - "5100:5100"
+    depends_on:
+     - default
+     - wc1
+     - wc2
+
+  default:
+    build: ./default
+    ports:
+     - "5101:5101"
+
+  wc1:
+    build: ./wc1
+    ports:
+     - "5102:5102"
+
+  wc2:
+    build: ./wc2
+    ports:
+     - "5103:5103"

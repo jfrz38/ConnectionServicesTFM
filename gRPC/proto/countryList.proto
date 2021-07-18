@@ -1,0 +1,18 @@
+
+syntax = "proto3";
+package countrylist;
+import "google/protobuf/empty.proto";
+
+service CountryList {
+  rpc GetCountryList(google.protobuf.Empty) returns (ResponseList);
+}
+
+message ResponseList {
+  repeated Data data = 1;
+}
+
+message Data {
+    string Code = 1;
+    string Name = 2;
+}
+

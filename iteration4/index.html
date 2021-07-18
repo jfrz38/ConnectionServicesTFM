@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  
+    <!-- Script -->
+    <script type="text/javascript" src="./script/script.js"></script>
+
+    <!-- Búsqueda -->
+    <script type="module" src="./components/search-wc/search.js"></script>
+    <!-- Información -->
+    <script type="module" src="./components/country-info-wc/countryInfo.js"></script>
+    <!-- Datos -->
+    <!-- <script type="module" src="./components/country-data-wc/countryData.js"></script>-->
+    <!-- Hasta que no se encapsule en un contenedor, los web components que utilicen gRPC se cargarán desde .dist-->
+    <script src="./server/npx/dist/main.js"></script>
+    <!-- Estadísticas -->
+    <script type="module" src="./components/country-statics-wc/countryStatics.js"></script>
+    <!-- Map -->
+    <!-- Hasta que no se encapsule en un contenedor, los web components que utilicen gRPC se cargarán desde .dist-->
+    <!-- <script type="module" src="./components/map-wc/map.js"></script> -->
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+  </head>
+  <body style="background-color: aqua; margin:15px">
+  
+    <div class="row">
+        <div class="col-md-2" style="border: 4px dotted black;">
+          <search-wc ></search-wc>
+        </div>
+        <div class="col-md-10">
+        <div style="border: 4px dotted brown;"> 
+          <country-data-wc class="row"></country-data-wc>
+    </div>
+          <div class="row">
+            <div class="col-md-9" style="border: 4px dotted purple;">
+              <map-wc
+              data='[
+                ["Country","Confirmed", "Deaths"],
+                ["",0,0]
+              ]',
+              code="world"></map-wc>
+              <div id="myPieChart"></div>
+
+            </div>
+            
+            <country-info-wc class="col-md-3" style="border: 4px dotted green;"></country-info-wc>
+          </div>
+          <country-statics-wc class="row" style="border: 4px dotted red;"></country-statics-wc>
+      </div>
+</div>  
+</body>
+  <div>
+
+</html>

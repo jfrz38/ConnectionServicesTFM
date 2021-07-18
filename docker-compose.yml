@@ -1,0 +1,22 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:1-alpine
+    volumes:
+     - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+     - ./nginx/common:/usr/share/nginx/html/common
+    ports:
+     - "6200:6200"
+    depends_on:
+     - default
+     - rest
+
+  default:
+    build: ./default
+    ports:
+     - "6201:6201"
+
+  rest:
+    build: ./rest
+    ports:
+        - "6202:6202"

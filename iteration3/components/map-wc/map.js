@@ -3,7 +3,7 @@ var options= {
         "legend":"none",
         "backgroundColor": "#81d4fa"
     }
-
+var chart;
 class map extends HTMLElement {
 
     constructor() {
@@ -18,9 +18,8 @@ class map extends HTMLElement {
         let html =
         `
             MAP
-            <div id="map" style="width: 100%; height: 100%; min-height: 350px; min-width: 600px;">
+            <div id="map" style="width: 100%; height: 100%;">
             </div>
-        
         `
         this.attachShadow({ mode: 'open' }).innerHTML = html
         var script = document.createElement('script');
@@ -41,7 +40,7 @@ class map extends HTMLElement {
 
     drawMap() {
         var data = google.visualization.arrayToDataTable(this.data);
-        var chart = new google.visualization.GeoChart(this.shadowRoot.getElementById('map'));
+        chart = new google.visualization.GeoChart(this.shadowRoot.getElementById('map'));
         chart.draw(data, options);
     }
 
@@ -69,11 +68,8 @@ class map extends HTMLElement {
         data = [['Country', 'Confirmed', 'Deaths'],
         [ code, 0,0]]
         var data = google.visualization.arrayToDataTable(data);
-        var chart = new google.visualization.GeoChart(this.shadowRoot.getElementById('map'));
         chart.draw(data, options);
     }
-
-
 }
 
 window.customElements.define('map-wc', map)

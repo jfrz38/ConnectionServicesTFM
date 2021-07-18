@@ -1,0 +1,32 @@
+syntax = "proto3";
+package countrydata;
+
+service CountryData {
+  rpc GetCountryData(Request) returns (Response);
+  rpc GetMapData(Request) returns (MapResponse);
+}
+message Request {
+  string code = 1;
+}
+
+message Response {
+  message obj {
+    uint32 confirmed = 1;
+    uint32 recovered = 2;
+    uint32 deaths = 3;
+    string date = 4;
+    string flag = 5;
+    string country = 6;
+  }
+  obj data = 1;
+}
+
+message MapResponse{
+  repeated ResponseData chartData = 1;
+}
+
+message ResponseData {
+  repeated string field1 = 1;
+  repeated uint32 field2 = 2;
+  repeated uint32 field3 = 3;
+}
