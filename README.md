@@ -1,5 +1,7 @@
 # WebComponents-TFM
 
-Despliegue de las distintas iteraciones de la aplicación basada en Custom web Components.
+Despliegue de la aplicación web final
 
-Run python HTTP server: `python -m SimpleHTTPServer`
+Ejecución: `docker-compose build && docker-compose up -d`
+
+Accesible en `http://localhost:80/`

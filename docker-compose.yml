@@ -6,17 +6,47 @@ services:
      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
      - ./nginx/common:/usr/share/nginx/html/common
     ports:
-     - "6200:6200"
+     - "80:6200"
     depends_on:
      - default
-     - rest
+     - data
+     - information
+     - search
+     - proxy
 
   default:
     build: ./default
     ports:
      - "6201:6201"
 
-  rest:
-    build: ./rest
+  data:
+    build: ./services/data
     ports:
-        - "6202:6202"
+      - "6202:6202"
+  map:
+    build: ./services/map
+    ports: 
+      - "6203:6203"
+
+  information:
+    build: ./services/information
+    environment:
+      APIHOST: express-api
+      APIPORT: 6210
+    ports:
+     - "6204:6204"
+
+
+  search:
+    build: ./services/search
+    environment:
+      GRPCHOST: server-grpc
+      GRPCPORT: 6211
+    ports:
+     - "6205:6205"
+      
+  proxy:
+    image: envoyproxy/envoy:v1.15.0
+    volumes: 
+      - ./grpc-proxy/envoy.yaml:/etc/envoy/envoy.yaml:ro
+    network_mode: host
