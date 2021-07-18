@@ -1,0 +1,28 @@
+{
+  "name": "information",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server/index.js",
+  "scripts": {
+    "build": "rollup src/client/client.js --file build/page.js --format iife",
+    "server": "node src/server/index.js",
+    "start": "npm run build; npm run server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jfrz38",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "ejs": "^2.7.4",
+    "express": "^4.17.1",
+    "webpack": "~4.43.0",
+    "webpack-cli": "~3.3.11",
+    "mongoclient": "^1.0.3",
+    "mongodb": "^3.5.7",
+    "mongoose": "^5.9.13"
+  },
+  "devDependencies": {
+    "rollup": "^1.32.1",
+    "webpack-cli": "^3.3.12"
+  }
+}

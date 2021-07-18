@@ -1,0 +1,62 @@
+{
+    "name": "Connection Service TFM",
+    "build": {
+      "dockerfile": "Dockerfile",
+      "args": {
+        "VARIANT": "14"
+      }
+    },
+    "remoteUser": "node",
+    "extensions": [
+      "dbaeumer.vscode-eslint",
+      "mikestead.dotenv",
+      "ms-azuretools.vscode-docker",
+      "octref.vetur",
+      "github.vscode-pull-request-github",
+      "yzhang.markdown-all-in-one",
+    ],
+    "settings": {
+      // Editor
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.organizeImports": true,
+        "source.fixAll": true
+      },
+      // Files
+      "files.insertFinalNewline": true,
+      // Terminal
+      "terminal.integrated.profiles.linux": {
+        "bash": {
+          "path": "bash"
+        }
+      },
+      "terminal.integrated.defaultProfile.linux": "bash",
+      // GitHub
+      "githubIssues.useBranchForIssues": "prompt",
+      "githubIssues.assignWhenWorking": true,
+      // ESLint
+      "eslint.format.enable": true,
+      "eslint.lintTask.enable": true,
+      "eslint.validate": [
+        "javascript",
+        "vue"
+      ],
+      // Vetur
+      "vetur.validation.template": false,
+      // JavaScript
+      "[javascript]": {
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+      },
+      // Vue
+      "[vue]": {
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+      },
+      // JSON
+      "[json]": {
+        "editor.tabSize": 2,
+      }
+    }
+  }
+  
