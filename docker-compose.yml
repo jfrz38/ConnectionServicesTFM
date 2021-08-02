@@ -2,6 +2,7 @@ version: '2'
 services:
   nginx:
     image: nginx:1-alpine
+    container_name: nginx
     volumes:
      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
      - ./nginx/common:/usr/share/nginx/html/common
@@ -10,43 +11,69 @@ services:
     depends_on:
      - default
      - data
+     - map
      - information
      - search
+     - statistics
+     - rabbitmq
      - proxy
 
   default:
     build: ./default
+    container_name: default
     ports:
      - "6201:6201"
 
   data:
     build: ./services/data
+    container_name: data
     ports:
       - "6202:6202"
   map:
     build: ./services/map
+    container_name: map
     ports: 
       - "6203:6203"
 
   information:
     build: ./services/information
-    environment:
-      APIHOST: express-api
-      APIPORT: 6210
+    container_name: information
     ports:
      - "6204:6204"
 
-
   search:
     build: ./services/search
-    environment:
-      GRPCHOST: server-grpc
-      GRPCPORT: 6211
+    container_name: search
     ports:
      - "6205:6205"
-      
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+        - 5672:5672
+        - 15672:15672
+    networks:
+      - rabbitmq_nodejs
+  
+  statistics:
+    build: ./services/statistics
+    container_name: statistics
+    ports:
+      - "6206:6206"
+    depends_on:
+      - rabbitmq
+    command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- npm start'
+    networks:
+      - rabbitmq_nodejs
+
   proxy:
     image: envoyproxy/envoy:v1.15.0
+    container_name: proxy
     volumes: 
       - ./grpc-proxy/envoy.yaml:/etc/envoy/envoy.yaml:ro
     network_mode: host
+    
+networks:
+  rabbitmq_nodejs:
+    driver: bridge
