@@ -29,23 +29,33 @@ services:
     container_name: data
     ports:
       - "6202:6202"
+    restart: always
+
   map:
     build: ./services/map
     container_name: map
     ports: 
       - "6203:6203"
+    restart: always
 
   information:
     build: ./services/information
     container_name: information
     ports:
      - "6204:6204"
+    restart: always
+    depends_on:
+      - rabbitmq
+    environment:
+      - QUEUE_NAME=information-statics
+      - CONNECTION_URL=amqp://rabbitmq
 
   search:
     build: ./services/search
     container_name: search
     ports:
      - "6205:6205"
+    restart: always
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
@@ -53,8 +63,7 @@ services:
     ports:
         - 5672:5672
         - 15672:15672
-    networks:
-      - rabbitmq_nodejs
+    restart: always
   
   statistics:
     build: ./services/statistics
@@ -64,8 +73,11 @@ services:
     depends_on:
       - rabbitmq
     command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- npm start'
-    networks:
-      - rabbitmq_nodejs
+    restart: always
+    environment:
+      - QUEUE_STATICS=information-statics
+      - MAP_STATICS=map-statics
+      - CONNECTION_URL=amqp://rabbitmq:5672
 
   proxy:
     image: envoyproxy/envoy:v1.15.0
@@ -74,6 +86,3 @@ services:
       - ./grpc-proxy/envoy.yaml:/etc/envoy/envoy.yaml:ro
     network_mode: host
     
-networks:
-  rabbitmq_nodejs:
-    driver: bridge
