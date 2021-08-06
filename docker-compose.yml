@@ -37,6 +37,9 @@ services:
     ports: 
       - "6203:6203"
     restart: always
+    environment:
+      - QUEUE_NAME=map-statics
+      - CONNECTION_URL=amqp://rabbitmq
 
   information:
     build: ./services/information

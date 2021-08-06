@@ -1,4 +1,4 @@
-const QUEUE_NAME = process.env.QUEUE_NAME || 'information-statics'
+const QUEUE_NAME = process.env.QUEUE_NAME || 'map-statics'
 const CONNECTION_URL = process.env.CONNECTION_URL ||'amqp://rabbitmq'
 var amqp = require('amqplib/callback_api');
 
@@ -18,7 +18,7 @@ module.exports.sendMessage = (message) => {
                 durable: false
             });
             channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
-            console.log(" [x] Sent (information) %s", message);
+            console.log(" [x] Sent (map) %s", message);
         });
         setTimeout(function() {
             connection.close();

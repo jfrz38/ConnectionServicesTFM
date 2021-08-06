@@ -26,7 +26,7 @@ function informationConnection(connection, queue){
         });
 
         channel.consume(queue, function(msg) {
-            console.log(" [x] Received %s", JSON.parse(msg.content));
+            console.log(" [x] Received (information) %s", JSON.parse(msg.content));
             writeFile("information", JSON.parse(msg.content))
         }, {
             noAck: true
@@ -45,7 +45,8 @@ function mapConnection(connection, queue){
         });
 
         channel.consume(queue, function(msg) {
-            console.log(" [x] Received %s", JSON.parse(msg.content));
+            console.log(" [x] Received (map) %s", JSON.parse(msg.content));
+            writeFile("map", JSON.parse(msg.content))
         }, {
             noAck: true
         });
