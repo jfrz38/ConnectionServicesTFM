@@ -17,6 +17,7 @@ services:
      - statistics
      - rabbitmq
      - proxy
+    restart: always
 
   default:
     build: ./default
