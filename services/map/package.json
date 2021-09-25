@@ -12,6 +12,7 @@
   "author": "jfrz38",
   "license": "ISC",
   "dependencies": {
+    "amqplib": "^0.8.0",
     "axios": "^0.21.1",
     "ejs": "^2.7.4",
     "express": "^4.17.1",
