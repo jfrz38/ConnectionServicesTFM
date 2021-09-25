@@ -1,9 +1,10 @@
 //const mongoose = require('mongoose');
 const countries_model = require('../model/country')
 const axios = require('axios');
-
+const amqpService = require('../services/amqp.service')
   //Información de un país
   module.exports.getCountryInfo = async (req, res) => {
+    const start = new Date()
     const code = req.params.iso
     try{
       var response = {}
@@ -46,17 +47,22 @@ const axios = require('axios');
       var pop = await countries_model.aggregate(agg);
       if(pop.length > 0){
         response.population = pop[0].population
-        return res.status(200).send(response)
+        res.status(200).send(response)
       }else{
-        return res.status(404).send({error:"Country not found"})
+        res.status(404).send({error:"Country not found"})
       }
     }catch(e){
-      return res.status(404).send({error:"Country not found"})
-    } 
+      res.status(404).send({error:"Country not found"})
+    }
+    const end = new Date()
+    const totalTime = end.getTime() - start.getTime();
+    // Send message to queue
+    amqpService.sendMessage({country:code, time:totalTime, hour: new Date()});
   }
 
   // Datos
   module.exports.getGlobalData = (req, res) => {
+    amqpService.sendMessage({country:"Global", time: null, hour: new Date()});
       return res.status(200).send({
         capital: "N/A",
         continent: "N/A",
