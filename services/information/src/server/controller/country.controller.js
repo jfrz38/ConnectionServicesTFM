@@ -2,73 +2,45 @@
 const countries_model = require('../model/country')
 const axios = require('axios');
 const amqpService = require('../services/amqp.service')
-  //Información de un país
-  module.exports.getCountryInfo = async (req, res) => {
-    const start = new Date()
-    const code = req.params.iso
-    try{
-      var response = {}
-      var r = await axios.get('https://restcountries.eu/rest/v2/alpha/'+code)
-      response = {
-        "capital":r.data.capital,
-        "continent":r.data.region,
-        "area":r.data.area,
-        "nativeName":r.data.nativeName,
-        "populationDensity":(r.data.population/r.data.area).toFixed(2)
-      }
-      const agg =
-          [
-            {
-              "$match": {
-                "country_iso2s": code.toUpperCase()
-              }
-            },
-            {
-              "$sort": {
-                "date": -1
-              }
-            },
-            {
-              "$group": {
-                "_id": null,
-                "first": {
-                  "$first": "$$ROOT"
-                }
-              }
-            },
-            {
-              "$project": {
-                "_id":0,
-                "population": "$first.population"
-              }
-            }
-          ]
-
-      var pop = await countries_model.aggregate(agg);
-      if(pop.length > 0){
-        response.population = pop[0].population
-        res.status(200).send(response)
-      }else{
-        res.status(404).send({error:"Country not found"})
-      }
-    }catch(e){
-      res.status(404).send({error:"Country not found"})
+//Información de un país
+module.exports.getCountryInfo = async (req, res) => {
+  const start = new Date()
+  const code = req.params.iso
+  try {
+    var response = {}
+    var r = await axios.get('https://restcountries.com/v3.1/alpha/' + code)
+    if (r.data.length <= 0) {
+      throw new Error()
     }
-    const end = new Date()
-    const totalTime = end.getTime() - start.getTime();
-    // Send message to queue
-    amqpService.sendMessage({country:code, time:totalTime, hour: new Date()});
+    const countryFound = r.data[0]
+    const nativeName = countryFound.name.nativeName[Object.keys(countryFound.name.nativeName)[0]].common;
+    response = {
+      "capital": countryFound.capital.join(","),
+      "continent": countryFound.region,
+      "area": countryFound.area,
+      "nativeName": nativeName,
+      "population": countryFound.population,
+      "populationDensity": (countryFound.population / countryFound.area).toFixed(2)
+    }
+    res.status(200).send(response)
+  } catch (e) {
+    res.status(404).send({ error: "Country not found" })
   }
+  const end = new Date()
+  const totalTime = end.getTime() - start.getTime();
+  // Send message to queue
+  amqpService.sendMessage({ country: code, time: totalTime, hour: new Date() });
+}
 
-  // Datos
-  module.exports.getGlobalData = (req, res) => {
-    amqpService.sendMessage({country:"Global", time: null, hour: new Date()});
-      return res.status(200).send({
-        capital: "N/A",
-        continent: "N/A",
-        area: "148.9M",
-        population: "6155182648",
-        nativeName: "N/A",
-        populationDensity: "41.34"
-      })
-  }
+// Datos
+module.exports.getGlobalData = (req, res) => {
+  amqpService.sendMessage({ country: "Global", time: null, hour: new Date() });
+  return res.status(200).send({
+    capital: "N/A",
+    continent: "N/A",
+    area: "148.9M",
+    population: "6155182648",
+    nativeName: "N/A",
+    populationDensity: "41.34"
+  })
+}

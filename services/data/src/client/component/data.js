@@ -4,6 +4,9 @@ import render from './render';
 class WebComponent extends HTMLElement {
 
     connectedCallback() {
+
+        document.addEventListener("change-country", this);
+
         this.update({ iso: null, country: "global" })
     }
 
@@ -58,6 +61,10 @@ class WebComponent extends HTMLElement {
                     this.render(values)
                 });
         }
+    }
+
+    handleEvent(event) {
+        this.update(event.detail)
     }
 }
 export default WebComponent;

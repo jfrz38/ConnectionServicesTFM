@@ -43,15 +43,12 @@
   }
 
   document.addEventListener("change-country", this);
+
   function handleEvent(event) {
     this.updateCountryData(event.detail);
   }
   function updateCountryData(details) {
-    document.querySelectorAll("data-wc").forEach(element => {
-      element.update(details);
-    })
     drawRegionsMap(details)
-    document.querySelector("information-wc").update(details);
   }
 </script>
 
