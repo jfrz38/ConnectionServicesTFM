@@ -31,7 +31,6 @@ class WebComponent extends HTMLElement {
     }
 
     handleEvent(event) {
-        console.log("EVENT DETAIL = ",event.detail)
         this.update(event.detail)
     }
 
