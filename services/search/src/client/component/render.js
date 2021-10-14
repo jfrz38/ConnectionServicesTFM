@@ -5,8 +5,8 @@ export default function render(list) {
         html+=`
         <ul class="nav">
           <li>
-          <a id="${element.Code}" class="nav-link" style="font-size: large; cursor: pointer;">
-            ${element.Name}
+          <a id="${element.code}" class="nav-link" style="font-size: large; cursor: pointer;">
+            ${element.name}
             </a>
           </li>
         </ul>
