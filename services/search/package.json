@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rollup dist/client.js --file build/page.js --format iife",
     "server": "node src/server/index.js",
-    "start": "npm run build; npm run server",
+    "start": "npm run build; npm run server;",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "jfrz38",

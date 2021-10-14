@@ -59,6 +59,7 @@ services:
     container_name: search
     ports:
      - "6205:6205"
+     - "9090:9090"
     restart: always
 
   rabbitmq:

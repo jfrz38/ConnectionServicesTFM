@@ -18,14 +18,17 @@ var server = new grpc.Server();
 
 server.addService(list.List.service, {
   getCountryList: (call, callback) => {
+    console.log("ENTRA getCountryList")
     callback(null, { data: getCountries() });
   }
 });
 
 server.bindAsync(
-  '0.0.0.0:6110', grpc.ServerCredentials.createInsecure(), (err, port) => {
+  '0.0.0.0:9090', grpc.ServerCredentials.createInsecure(), (err, port) => {
     if (err) console.log("error = ", err)
-    else server.start();
+    else { 
+      console.log("Server started at 0.0.0.0:9090")
+      server.start();}
   });
 
 function getCountries() {
