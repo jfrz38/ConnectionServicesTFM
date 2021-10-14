@@ -1,4 +1,3 @@
-// Data
 import { ListClient } from './proto/list_grpc_web_pb';
 import { Response } from './proto/list_pb';
 import render from './render';
@@ -31,28 +30,6 @@ class WebComponent extends HTMLElement {
                     }))
                 })
         });
-
-        /*fetch('http://' + window.location.hostname + ':' + window.location.port + '/search/countries')
-            .then(response => response.json())
-            .then(data => {
-                this.render(data.list)
-                const div = this.querySelector("#countries-search")
-                div.addEventListener('click', (event) => {
-                    const isButton = event.target.nodeName === 'A';
-                    if (!isButton) {
-                        return;
-                    }
-                    this.dispatchEvent(new CustomEvent("change-country", {
-                        bubbles: true,
-                        composed: true,
-                        detail: {
-                            iso: event.target.id,
-                            country: event.target.innerText
-                        }
-                    }))
-                })
-            });*/
-
     }
 
     render(list) {
