@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+service ExampleService {
+    rpc GetExample (Size) returns (Example) {}
+}
+
+message Size {
+    int32 size = 1;
+}
+
+message Example {
+   string message = 1;
+   string array = 2;
+}
